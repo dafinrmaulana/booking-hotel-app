@@ -1,9 +1,9 @@
 @extends('tamu.master-tamu')
 @section('title')
-Home
+    Home
 @endsection
 @section('style')
-<link href="{{ asset('Guest/custom/guest.home.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('Guest/custom/guest.home.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('header')
@@ -56,7 +56,8 @@ Home
 
                             <div class="col-lg-5 p-2">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="Rooms Booked" id="jumlah" aria-describedby="jumlah">
+                                    <input type="number" class="form-control" placeholder="Rooms Booked" id="jumlah"
+                                        aria-describedby="jumlah">
                                 </div>
                             </div>
 
@@ -79,21 +80,22 @@ Home
         <div class="row mb-4 mt-3">
             <div class="col-lg-6">
                 @if (!empty($about->foto))
-                <img src="{{ asset('img/about/' . $about->foto) }}" alt="About foto" class="img-fluid rounded">
+                    <img src="{{ asset('img/about/' . $about->foto) }}" alt="About foto" class="img-fluid rounded">
                 @endif
             </div>
             @if (!empty($about->about))
-            <div class="col-lg-6 about">
-                <h2 class="display-5">About Us</h2>
-                <br>
-                <p class="text-secondary"> {{ Str::limit($about->about, 250) }} </p>
-                <br>
-                <a href="" class="btn btn-warning rounded-0 text-light">Learn More</a>
-            </div>
+                <div class="col-lg-6 about">
+                    <h2 class="display-5">About Us</h2>
+                    <br>
+                    <p class="text-secondary"> {{ Str::limit($about->about, 250) }} </p>
+                    <br>
+                    <a href="" class="btn btn-warning rounded-0 text-light">Learn More</a>
+                </div>
             @endif
         </div>
     </div>
     {{-- end about --}}
+    
 
     {{-- Rooms --}}
     <div class="container">
@@ -103,48 +105,47 @@ Home
 
         <div class="row">
             @foreach ($kamar as $kamar)
-            <div class="col-lg-4 col-6 mb-4">
-                <div class="card shadow rounded-0">
-                    <h6 class="card-title text-uppercase px-3 pt-3">{{ $kamar->nama_kamar }}</h6>
-                    @if ($kamar->foto == null)
-                        <img style="cursor: pointer"
-                        data-fancybox data-src
-                        src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
-                        alt="foto kamar" class="img-fluid">
-                    @endif
-                    @if ($kamar->foto)
-                        <img style="cursor: pointer"
-                        data-fancybox data-src
-                        src="{{ asset('img/kamar/' . $kamar->foto) }}"
-                        alt="foto kamar" class="img-fluid">
-                    @endif
-                    <div class="card-body">
-                        {{-- <span class="fa fa-star checked"></span>
+                <div class="col-lg-4 col-6 mb-4">
+                    <div class="card shadow rounded-0">
+                        <h6 class="card-title text-uppercase px-3 pt-3">{{ $kamar->nama_kamar }}</h6>
+                        @if ($kamar->foto == null)
+                            <img style="cursor: pointer" data-fancybox data-src
+                                src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png"
+                                alt="foto kamar" class="img-fluid">
+                        @endif
+                        @if ($kamar->foto)
+                            <img style="cursor: pointer" data-fancybox data-src
+                                src="{{ asset('img/kamar/' . $kamar->foto) }}" alt="foto kamar" class="img-fluid">
+                        @endif
+                        <div class="card-body">
+                            {{-- <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star checked"></span>
                         <span class="fa fa-star"></span>
                         <span class="fa fa-star"></span> --}}
 
-                        <p class="card-text">{{ Str::limit($kamar->keterangan, 60) }}</p>
+                            <p class="card-text">{{ Str::limit($kamar->keterangan, 60) }}</p>
 
-                        {{-- <div class="facilites-icon">
+                            {{-- <div class="facilites-icon">
                             <i class="fas fa-wifi"></i><i class="fas fa-phone ml-2"></i><i class="fas fa-bed ml-2"></i>
                         </div> --}}
-                        <br>
+                            <br>
 
-                        <strong class="price">Rp. {{ number_format($kamar->harga, 2, '.', '.') }} /Night</strong> <br>
-                        <a href="#" class="btn btn-primary rounded-pill btn-pesan mt-2">Book Now</a>
-                        <a href="{{ route('detail-kamar.tamu', $kamar->id) }}"
-                        class="btn btn-outline-success rounded-pill btn-pesan mt-2">Details</a>
+                            <strong class="price">Rp. {{ number_format($kamar->harga, 2, '.', '.') }}
+                                /Night</strong> <br>
+                            <a href="#" class="btn btn-primary rounded-pill btn-pesan mt-2">Book Now</a>
+                            <a href="{{ route('detail-kamar.tamu', $kamar->id) }}"
+                                class="btn btn-outline-success rounded-pill btn-pesan mt-2">Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endforeach
 
         </div> {{-- End Row Rooms card --}}
 
         <div class="row justify-content-center mt-3">
-            <a href="{{ route('guest.rooms') }}" class="btn btn-outline-primary rounded-0 btn-sm text-capitalize">find more</a>
+            <a href="{{ route('guest.rooms') }}" class="btn btn-outline-primary rounded-0 btn-sm text-capitalize">find
+                more</a>
         </div>
     </div>
     {{-- end rooms --}}
@@ -158,17 +159,21 @@ Home
     <div class="container-fluid">
         <div class="row hotel-facilites-bg">
             @foreach ($fasilitas as $fasilitas)
-            <div class="col-lg-3 col-md-3 col-6 mb-4 mt-5 text-center card-services">
-                <div class="card shadow position-relative card-serv border-0">
-                    <div class="position-absolute p-1 px-2 rounded-bottom title-serv bg-warning font-weight-bold" style="z-index: 2">
-                        <p class="text-dark">{{ $fasilitas->nama_fasilitas_hotel }}</p>
+                <div class="col-lg-3 col-md-3 col-6 mb-4 mt-5 text-center card-services">
+                    <div class="card shadow position-relative card-serv border-0">
+                        <div class="position-absolute p-1 px-2 rounded-bottom title-serv bg-warning font-weight-bold"
+                            style="z-index: 2">
+                            <p class="text-dark">{{ $fasilitas->nama_fasilitas_hotel }}</p>
+                        </div>
+                        <div class="card-body"
+                            style="background-image: url({{ asset('img/fasilitasHotel/' . $fasilitas->foto) }}); background-size: cover; overflow: hidden">
+                        </div>
                     </div>
-                    <div class="card-body" style="background-image: url({{ asset('img/fasilitasHotel/'.$fasilitas->foto) }}); background-size: cover; overflow: hidden"></div>
+                    <div class="parent-services-detail">
+                        <a href="{{ route('detail-fasilitas-hotel.tamu', $fasilitas->id) }}"
+                            class="btn btn-primary services-detail">Detail</a>
+                    </div>
                 </div>
-                <div class="parent-services-detail">
-                    <a href="{{ route('detail-fasilitas-hotel.tamu', $fasilitas->id) }}" class="btn btn-primary services-detail">Detail</a>
-                </div>
-            </div>
             @endforeach
         </div>
     </div>
@@ -195,58 +200,103 @@ Home
                                     <div class="row">
 
                                         <div class="col-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-alt"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="Your Full Name" aria-label="Your Full Name" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
+                                            @error('name')
+                                                <small class="form-text text-danger" id="name">{{ $message }}</small>
+                                            @enderror
+                                            <div class="input-group mb-3">
 
-                                    <div class="col-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="Your valid Email" aria-label="Your valid Email" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                    id="name">
+                                                    <i class="fas fa-user-alt"></i></span>
+                                                </div>
 
-                                    <div class="col-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="Subject" aria-label="Subject" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
+                                                <input
+                                                type="text" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror"
+                                                name="name" placeholder="Your Full Name" aria-label="Your Full Name"
+                                                aria-describedby="name">
 
-                                    <div class="col-12">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Your Phone Number" aria-label="Your Phone Number" aria-describedby="basic-addon1">
                                         </div>
-                                    </div>
 
+                                        <div class="col-12">
+                                            @error('email')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                    id="basic-addon1"><i
+                                                    class="fas fa-envelope"></i></span>
+                                                </div>
+                                                <input type="email"
+                                                value="{{ old('email') }}"
+                                                class="form-control @error('email') is-invalid @enderror"
+                                                name="email" placeholder="Your valid Email"
+                                                aria-label="Your valid Email" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            @error('subject')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1"><i
+                                                            class="fas fa-at"></i></span>
+                                                </div>
+                                                <input type="text"
+                                                value="{{ old('subject') }}"
+                                                class="form-control @error('subject') is-invalid @enderror"
+                                                name="subject" placeholder="Subject" aria-label="Subject"
+                                                aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            @error('phone')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"
+                                                    id="basic-addon1"><i
+                                                    class="fas fa-phone"></i></span>
+                                                </div>
+                                                <input type="phone"
+                                                value="{{ old('phone') }}"
+                                                class="form-control  @error('phone') is-invalid @enderror" name="phone"
+                                                placeholder="Your Phone Number" aria-label="Your Phone Number"
+                                                aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 mt-3">
+                                    @error('message')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                    <textarea name="message"
+                                    value="{{ old('message') }}"
+                                    class="form-control  @error('message') is-invalid @enderror"
+                                    cols="55" rows="8"
+                                    placeholder=" Your Message"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6 mt-3">
-                                <textarea name="" id="" cols="55" rows="8" placeholder=" Your Message"></textarea>
+                            <div class="row">
+                                <div class="col-lg">
+                                    <button type="submit" class="btn btn-primary">Send Message</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg">
-                                <button type="submit" class="btn btn-primary">Send Message</button>
-                            </div>
-                        </div>
                     </form>
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     {{-- end contact --}}
 @endsection

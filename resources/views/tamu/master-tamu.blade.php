@@ -41,12 +41,123 @@
                     <a class="nav-link {{ 'rooms' == request()->path() ? 'active' : '' }}" href="{{ route('guest.rooms') }}">Rooms</a>
                     <a class="nav-link" href="#">Facilites</a>
                     <a class="nav-link" href="#">About</a>
-                    <button type="button" class="btn btn-primary tmbl rounded-pill" href="#">Login</button>
+                    <button type="button" class="btn btn-primary tmbl rounded-pill" data-toggle="modal" data-target="#loginModal">Login</button>
                 </div>
             </div>
         </nav>
     </div>
     {{-- end top bar --}}
+
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1"  aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="row justify-content-center pb-3">
+              <div class="col-lg-10">
+                <div class="login-form">
+                  <div class="text-center mb-4">
+                      <h1 class="h4 text-gray-900">Login</h1>
+                      <small>Welcome Back !</small>
+                  </div>
+                  <form class="user" action="{{ route('auth.login') }}" method="post">
+                    @csrf
+
+                    <div class="form-group">
+                      <input type="text" name="username" class="form-control" id="username" aria-describedby="usename"
+                        placeholder="Enter Username" required>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group mb-3">
+                          <input type="password" name="password"
+                              class="form-control @error('password') is-invalid @enderror" id="password"
+                              placeholder="Enter password" aria-describedby="basic-addon2" required>
+                          <div class="input-group-append show-trigger">
+                              <span class="input-group-text" id="basic-addon2">
+                                  <i class="fas fa-eye d-none" id="hide_eye"></i>
+                                  <i class="fas fa-eye-slash" id="show_eye"></i>
+                              </span>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block">Login</button>
+                      <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#signinModal">Sign Up For Free</button>
+                    </div>
+                  </form>
+                  <hr>
+                  <div class="text-center">
+                    <a class="font-weight-bold small" href="register.html">Forgot password ?</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="signinModal" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="row justify-content-center pb-3">
+              <div class="col-lg-10">
+                <div class="login-form">
+                  <div class="text-center mb-4">
+                      <h1 class="h4 text-gray-900">Login</h1>
+                      <small>Welcome To Ketaksaan Hotel</small>
+                  </div>
+                  <form class="user" action="{{ route('auth.login') }}" method="post">
+                    @csrf
+
+                    <div class="form-group">
+                      <input type="text" name="username" class="form-control" id="username" aria-describedby="usename"
+                        placeholder="Enter Username" required>
+                    </div>
+
+                    <div class="form-group">
+                      <input type="text" name="username" class="form-control" id="username" aria-describedby="usename"
+                        placeholder="Enter Username" required>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group mb-3">
+                          <input type="password" name="password"
+                              class="form-control @error('password') is-invalid @enderror" id="password"
+                              placeholder="Enter password" aria-describedby="basic-addon2" required>
+                          <div class="input-group-append show-trigger">
+                              <span class="input-group-text" id="basic-addon2">
+                                  <i class="fas fa-eye d-none" id="hide_eye"></i>
+                                  <i class="fas fa-eye-slash" id="show_eye"></i>
+                              </span>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                    </div>
+                  </form>
+                  <hr>
+                  <div class="text-center">
+                    <a class="font-weight-bold small" href="register.html">Forgot password ?</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
 
     {{-- header --}}
     @yield('header')
@@ -57,7 +168,7 @@
     {{-- end main --}}
 
     {{-- footer --}}
-    <div class="container-fluid">
+    {{-- <div class="container-fluid">
         <div class="row footer-parent">
 
             <div class="container">
@@ -70,16 +181,16 @@
                         <p class="text-uppercase text-light title-footer">Navigation Bar</p>
                         <table>
                             <tr>
-                                <td class="pr-3 main-footer">Home</td>
-                                <td class="main-footer">About</td>
+                                <td class="pr-3 main-footer"><a href="{{ route('guest.home') }}">Home</a></td>
+                                <td class="main-footer"><a href="">About</a></td>
                             </tr>
                             <tr>
-                                <td class="pr-3 main-footer">Rooms</td>
-                                <td class="main-footer">Facilites</td>
+                                <td class="pr-3 main-footer"><a href="{{ route('guest.rooms') }}">Rooms</a></td>
+                                <td class="main-footer"><a href="">Facilites</a></td>
                             </tr>
                             <tr>
-                                <td class="pr-3 main-footer">Contact</td>
-                                <td class="main-footer">Log In</td>
+                                <td class="pr-3 main-footer"><a href="">Contact</a></td>
+                                <td class="main-footer"><a href="">Log In</a></td>
                             </tr>
                         </table>
                     </div>
@@ -87,16 +198,8 @@
                         <p class="text-uppercase text-light title-footer">Rooms</p>
                         <table>
                             <tr>
-                                <td class="pr-3 main-footer">Deluxe Standar</td>
+                                <td class="pr-3 main-footer">Deluxe Standart</td>
                                 <td class="main-footer">Deluxe premium</td>
-                            </tr>
-                            <tr>
-                                <td class="pr-3 main-footer">Traveler room</td>
-                                <td class="main-footer">King Room</td>
-                            </tr>
-                            <tr>
-                                <td class="pr-3 main-footer">3 Star room</td>
-                                <td class="main-footer">Double Bed</td>
                             </tr>
                         </table>
                     </div>
@@ -123,13 +226,30 @@
             <div class="container">
                 <div class="row justify-content-center mt-2">
                     <div class="col-lg-11 text-center pt-2 pb-2 copyright main-footer">
-                        Copyright 2022 Build By Dafi Nurrohman Maulana
+                        <span>copyright &copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> - developed by
+                            <b><a href="https://github.com/DafiNMaulana/" target="_blank">Dafi Nurrohman Maulana</a></b>
+                        </span>
                     </div>
                 </div>
             </div>
 
         </div>
-    </div>
+    </div> --}}
+    <footer class="sticky-footer footer-parent py-3">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto copyright main-footer">
+                <span>copyright &copy;
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script> - developed by
+                    <b><a href="https://github.com/DafiNMaulana/" target="_blank">Dafi Nurrohman Maulana</a></b>
+                </span>
+            </div>
+        </div>
+    </footer>
     {{-- end footer --}}
 
     <script src="{{ asset('RA/vendor/jquery/jquery.min.js') }}"></script>

@@ -45,6 +45,14 @@
 
 }
 
+.main-footer {
+    text-decoration: none;
+    color:rgb(99, 97, 97);
+}
+.main-footer a {
+    text-decoration: none !important;
+    color:rgb(99, 97, 97);
+}
 /* by sona template */
 .breadcrumb-text .bt-option a {
 	display: inline-block;
@@ -72,7 +80,7 @@
 .main-footer {
     color:rgb(99, 97, 97);
 }
-.copyright {
+/* .copyright {
     border-top: 1px solid rgb(99, 97, 97);
-}
+} */
 

@@ -33,10 +33,27 @@ class TamuPageController extends Controller
         return view('tamu.detail-fasilitas-hotel', compact('fasilitas'));
     }
     public function kirimEmail(Request $request) {
+        $request->validate([
+            'name'=>'required',
+            'email'=>'required',
+            'subject'=>'required',
+            'message'=>'required',
+            'phone'=>'required',
+        ]);
         $data = $request->all();
-        Mail::to('dafinmaulana18@gmail.com')->send(
-            new contactUs($data)
-        );
-        return redirect('/')->with('email', 'email');
+        Mail::send('mail.contact-us', array(
+
+            'name'    => $data['name'],
+            'email'   => $data['email'],
+            'phone'   => $data['phone'],
+            'subject' => $data['subject'],
+            'pesan' => $data['message'],
+
+        ), function($message) use ($request){
+            $message->from($request->email);
+            $message->to('admin@ketaksaanhotel.com', 'Admin')->subject($request->get('subject'));
+
+        });
+        return back()->with('email', 'email');
     }
 }

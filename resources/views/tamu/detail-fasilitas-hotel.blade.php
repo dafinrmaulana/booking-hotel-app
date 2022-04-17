@@ -40,7 +40,7 @@
                 @endif
             </div>
             <div class="col-lg-6">
-                <h5>About This Facilities</h5>
+                <h5 class=" text-about">About This Facilities</h5>
                 <br>
                 <p>{{ $fasilitas->keterangan }}</p>
             </div>
