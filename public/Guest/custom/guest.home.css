@@ -5,6 +5,9 @@
     background-size: cover;
     position: relative;
 }
+.message-pass-regis {
+    margin-top: -10px;
+}
 
 .about h2 {
     font-weight: bold;

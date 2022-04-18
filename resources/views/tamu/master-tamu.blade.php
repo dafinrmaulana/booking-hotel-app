@@ -51,54 +51,54 @@
     <!-- Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1"  aria-hidden="true">
         <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-0">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="row justify-content-center pb-3">
-              <div class="col-lg-10">
-                <div class="login-form">
-                  <div class="text-center mb-4">
-                      <h1 class="h4 text-gray-900">Login</h1>
-                      <small>Welcome Back !</small>
-                  </div>
-                  <form class="user" action="{{ route('auth.login') }}" method="post">
-                    @csrf
-
-                    <div class="form-group">
-                      <input type="text" name="username" class="form-control" id="username" aria-describedby="usename"
-                        placeholder="Enter Username" required>
-                    </div>
-
-                    <div class="form-group">
-                      <div class="input-group mb-3">
-                          <input type="password" name="password"
-                              class="form-control @error('password') is-invalid @enderror" id="password"
-                              placeholder="Enter password" aria-describedby="basic-addon2" required>
-                          <div class="input-group-append show-trigger">
-                              <span class="input-group-text" id="basic-addon2">
-                                  <i class="fas fa-eye d-none" id="hide_eye"></i>
-                                  <i class="fas fa-eye-slash" id="show_eye"></i>
-                              </span>
-                          </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Login</button>
-                      <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#signinModal">Sign Up For Free</button>
-                    </div>
-                  </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="font-weight-bold small" href="register.html">Forgot password ?</a>
-                  </div>
+            <div class="modal-content">
+                <div class="modal-header border-bottom-0">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 </div>
-              </div>
+                <div class="row justify-content-center pb-3">
+                <div class="col-lg-10">
+                    <div class="login-form">
+                    <div class="text-center mb-4">
+                        <h1 class="h4 text-gray-900">Login</h1>
+                        <small>Welcome Back !</small>
+                    </div>
+                    <form class="user" action="{{ route('auth.login') }}" method="post">
+                        @csrf
+
+                        <div class="form-group">
+                        <input type="text" name="username" class="form-control" id="username_login" aria-describedby="usename"
+                            placeholder="Enter Username">
+                        </div>
+
+                        <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror" id="password_login"
+                                placeholder="Enter password" aria-describedby="basic-addon2">
+                            <div class="input-group-append show-trigger">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-eye d-none" id="hide_eye"></i>
+                                    <i class="fas fa-eye-slash" id="show_eye"></i>
+                                </span>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#signinModal">Sign Up For Free</button>
+                        </div>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <a class="font-weight-bold small" href="register.html">Forgot password ?</a>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -110,37 +110,64 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
+
             <div class="row justify-content-center pb-3">
               <div class="col-lg-10">
                 <div class="login-form">
+
                   <div class="text-center mb-4">
-                      <h1 class="h4 text-gray-900">Login</h1>
+                      <h1 class="h4 text-gray-900">Register Your Account</h1>
                       <small>Welcome To Ketaksaan Hotel</small>
                   </div>
-                  <form class="user" action="{{ route('auth.login') }}" method="post">
+                  <form class="user" action="{{ route('register.guest') }}" method="post">
                     @csrf
 
                     <div class="form-group">
-                      <input type="text" name="username" class="form-control" id="username" aria-describedby="usename"
-                        placeholder="Enter Username" required>
+                      <input type="email" name="email_regist" value="{{ old('email_regist') }}" class="form-control @error('email_regist') is-invalid @enderror" id="email" aria-describedby="usename"
+                        placeholder="Enter email">
+                        @error('email_regist')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <div class="form-group">
-                      <input type="text" name="username" class="form-control" id="username" aria-describedby="usename"
-                        placeholder="Enter Username" required>
+                      <input type="text" name="no_hp_regist" value="{{ old('no_hp_regist') }}" class="form-control @error('no_hp_regist') is-invalid @enderror" id="username" aria-describedby="usename"
+                        placeholder="Enter Phone Number">
+                        @error('no_hp_regist')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                      <input type="text" name="nama_regist" value="{{ old('nama_regist') }}" class="form-control @error('nama_regist') is-invalid @enderror" id="username" aria-describedby="usename"
+                        placeholder="Enter your Full name">
+                        @error('nama_regist')
+                        <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <div class="form-group">
                       <div class="input-group mb-3">
-                          <input type="password" name="password"
-                              class="form-control @error('password') is-invalid @enderror" id="password"
-                              placeholder="Enter password" aria-describedby="basic-addon2" required>
-                          <div class="input-group-append show-trigger">
+                          <input type="password" name="password_regist"
+                              class="form-control @error('password_regist') is-invalid @enderror" id="password_regist"
+                              placeholder="Enter password" aria-describedby="basic-addon2">
+                          <div class="input-group-append show-trigger-2">
                               <span class="input-group-text" id="basic-addon2">
-                                  <i class="fas fa-eye d-none" id="hide_eye"></i>
-                                  <i class="fas fa-eye-slash" id="show_eye"></i>
+                                  <i class="fas fa-eye d-none" id="hide_eye_regist"></i>
+                                  <i class="fas fa-eye-slash" id="show_eye_regist"></i>
                               </span>
                           </div>
+                      </div>
+                      @error('password_regist')
+                      <small class="text-danger message-pass-regis">{{ $message }}</small>
+                      @enderror
+                    </div>
+
+                    <div class="form-group">
+                      <div class="input-group mb-3">
+                          <input type="password" name="password_confirmation_regist"
+                              class="form-control @error('password') is-invalid @enderror" id="password"
+                              placeholder="Confirm the password" aria-describedby="basic-addon2">
                       </div>
                     </div>
 
@@ -155,6 +182,7 @@
                 </div>
               </div>
             </div>
+
         </div>
         </div>
     </div>
@@ -255,4 +283,72 @@
     <script src="{{ asset('RA/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('RA/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('customlibrary/fancybox/fancybox.umd.js') }}"></script>
+    <script>
+        // sign up error
+        @if ($errors->has('username_regist'))
+            $('#signinModal').modal('show');
+        @endif
+        @if ($errors->has('email_regist'))
+            $('#signinModal').modal('show');
+        @endif
+        @if ($errors->has('password_regist'))
+            $('#signinModal').modal('show');
+        @endif
+        @if ($errors->has('password_confirmation_regist'))
+            $('#signinModal').modal('show');
+        @endif
+
+        // show hide password
+        $('.show-trigger').on('click', function() {
+            var x = document.getElementById("password_login");
+            var show_eye = document.getElementById("show_eye");
+            var hide_eye = document.getElementById("hide_eye");
+            $('#hide_eye').removeClass("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        });
+
+        $('.show-trigger-2').on('click', function() {
+            var x = document.getElementById("password_regist");
+            var show_eye = document.getElementById("show_eye_regist");
+            var hide_eye = document.getElementById("hide_eye_regist");
+            $('#hide_eye_regist').removeClass("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        });
+
+        // register message
+        @if (session()->has('regist'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3600,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: 'Selamat! Akun berhasil di daftarkan'
+            })
+        @endif
+    </script>
 </body>
