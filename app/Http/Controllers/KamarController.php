@@ -116,15 +116,9 @@ class KamarController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-        $dataKamar = kamar::findorfail($id);
-        $request->validate([
-            'nama_kamar'=>"required|min:3|max:20|unique:kamar,nama_kamar,{$dataKamar->id}|not_regex:/[0-9!@#$%^&*]/",
-=======
         $kamar = kamar::findorfail($id);
         $request->validate([
             'nama_kamar'=>"required|min:3|max:20|unique:kamar,nama_kamar,{$kamar->id}|not_regex:/[0-9!@#$%^&*]/",
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
             'jumlah'=>'required|numeric|integer|min:1|not_regex:/[a-zA-z ]/',
             'harga'=>'required|numeric|integer|min:100000|not_regex:/[a-zA-z ]/',
             'foto'=>'nullable',
@@ -149,11 +143,6 @@ class KamarController extends Controller
             'foto.required'=>'Foto perlu diisi',
             'keterangan.required'=>'Keterangan perlu diisi',
         ]);
-<<<<<<< HEAD
-        $kamar = kamar::findorfail($id);
-
-=======
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
         if ( $kamar->foto && $request->foto) {
             if(file_exists("img/kamar/".$kamar->foto)) {
                 unlink("img/kamar/".$kamar->foto);

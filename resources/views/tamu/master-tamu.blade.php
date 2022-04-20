@@ -41,7 +41,11 @@
                     <a class="nav-link {{ 'rooms' == request()->path() ? 'active' : '' }}" href="{{ route('guest.rooms') }}">Rooms</a>
                     <a class="nav-link" href="#">Facilites</a>
                     <a class="nav-link" href="#">About</a>
+                    @if (Auth::user())
+                    <a class="nav-link" href="#">{{ Auth::user()->nama_tamu }}</a>
+                    @else
                     <button type="button" class="btn btn-primary tmbl rounded-pill" data-toggle="modal" data-target="#loginModal">Login</button>
+                    @endif
                 </div>
             </div>
         </nav>

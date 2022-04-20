@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('tamu', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->nullable();
+            $table->string('nama_tamu')->nullable();
             $table->string('email');
             $table->string('password');
             $table->string('username')->nullable();
             $table->char('no_hp')->nullable();
             $table->string('remember_token')->nullable();
+            $table->string('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

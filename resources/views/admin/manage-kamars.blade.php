@@ -48,7 +48,7 @@
                                 <tr>
                                     <td>{{ $loop->index += 1 }}</td>
                                     <td>{{ $data->nama_kamar }}</td>
-                                    <td>Rp. {{ number_format($data->harga, 2, '.', '.') }}</td>
+                                    <td>Rp. {{ number_format($data->harga, 2, ',', '.') }}</td>
                                     <td>{{ $data->jumlah }} kamar</td>
 
                                     @if ($data->foto == null)

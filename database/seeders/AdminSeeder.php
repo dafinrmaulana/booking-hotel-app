@@ -30,11 +30,7 @@ class AdminSeeder extends Seeder
         admin::create([
             'nama'=>'Resepsionis',
             'role'=>'resepsionis',
-<<<<<<< HEAD
-            'username'=>'resepsionis',
-=======
             'username'=>'resep',
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
             'password'=>bcrypt('123123'),
             'remember_token'=>Str::random(50),
             'created_at'=>Carbon::now(),

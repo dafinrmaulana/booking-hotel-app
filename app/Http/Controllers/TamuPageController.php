@@ -11,6 +11,7 @@ use App\Mail\contactUs;
 use App\Models\tamu;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Auth\Events\Registered;
 
 class TamuPageController extends Controller
 {
@@ -75,7 +76,7 @@ class TamuPageController extends Controller
             'no_hp_regist'=>'required|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
             'password_regist'=>'required|min:6|max:1024|same:password_confirmation_regist|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
         ]);
-        tamu::create([
+        tamu::create([  
             'nama'=>$request->nama_regist,
             'email'=>$request->email_regist,
             'no_hp'=>$request->no_hp_regist,
