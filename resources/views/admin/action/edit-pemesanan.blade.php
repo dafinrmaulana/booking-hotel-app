@@ -4,16 +4,26 @@
 @endsection
 @section('main')
     <x-breadcrumb title="Manage Pemesanan">
+<<<<<<< HEAD
         <li class="breadcrumb-item"><a href="./">Home</a></li>
         <li class="breadcrumb-item">Tables</li>
         <li class="breadcrumb-item active" aria-current="page">Manage Pemesanan</li>
+=======
+        <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('manage-pemesanan.index') }}">Data pemesanan</a></li>
+        <li class="breadcrumb-item active" aria-current="page">edit Pemesanan</li>
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     </x-breadcrumb>
 
     <div class="row">
         <div class="col-lg-7">
             <!-- Form Basic -->
             <div class="card mb-4">
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
                 <x-card-header>
                     <h6 class="m-0 font-weight-bold text-primary">Form pemesanan</h6>
                 </x-card-header>
@@ -22,6 +32,7 @@
                     <x-form action="{{ route('manage-pemesanan.update', $data->id) }}" id="update-pemesanan" method="POST"
                         bajak="put">
                         <div class="row">
+<<<<<<< HEAD
                             <x-modal-input value="{{ old('nama_pemesan', $data->nama_pemesan) }}" name='nama_pemesan'
                                 label="Nama Pemesan" type="text" />
                             <x-modal-input value="{{ old('nama_tamu', $data->nama_tamu) }}" name='nama_tamu'
@@ -35,6 +46,21 @@
                             <x-modal-input value="{{ old('tanggal_checkout', $data->tanggal_checkout) }}"
                                 name='tanggal_checkout' label="Tanggal Check Out" type="date" />
                             <x-modal-input value="{{ old('jumlah_kamar_dipesan', $data->jumlah_kamar_dipesan) }}"
+=======
+                            <x-modal-input class="col-6" value="{{ old('nama_pemesan', $data->nama_pemesan) }}" name='nama_pemesan'
+                                label="Nama Pemesan" type="text" />
+                            <x-modal-input class="col-6" value="{{ old('nama_tamu', $data->nama_tamu) }}" name='nama_tamu'
+                                label="Nama Tamu" type="text" />
+                            <x-modal-input class="col-6" value="{{ old('email', $data->email) }}" name='email' label="Email"
+                                type="email" />
+                            <x-modal-input class="col-6" value="{{ old('no_hp', $data->no_hp) }}" name='no_hp' label="Nomor Hp pemesan"
+                                type="text" />
+                            <x-modal-input class="col-6" value="{{ old('tanggal_checkin', $data->tanggal_checkin) }}"
+                                name='tanggal_checkin' label="Tanggal Check In" type="date" />
+                            <x-modal-input class="col-6" value="{{ old('tanggal_checkout', $data->tanggal_checkout) }}"
+                                name='tanggal_checkout' label="Tanggal Check Out" type="date" />
+                            <x-modal-input class="col-6" value="{{ old('jumlah_kamar_dipesan', $data->jumlah_kamar_dipesan) }}"
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
                                 name='jumlah_kamar_dipesan' label="Jumlah kamar dipesan" type="text" />
                             <div class="form-group col-6">
                                 <label for="nama_kamar">Nama Kamar</label>

@@ -3,7 +3,7 @@
     RuangAdmin - Manage fasilitas
 @endsection
 @section('main')
-    <x-breadcrumb title="Manage tamu">
+    <x-breadcrumb title="Manage fasilitas kamar">
         <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active" aria-current="page">Data Fasilitas Kamar</li>
     </x-breadcrumb>
@@ -18,7 +18,7 @@
                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
                         <i class="fas fa-plus"></i> Tambah fasilitas kamar
                     </button>
-                    <form action="{{ route('search.fasilitasKamar') }}" method="get">
+                    <form action="{{ route('search.fasilitas') }}" method="get">
                         @csrf
                         <div class="row g-3 align-items-center">
                             <div class="col-auto">
@@ -124,7 +124,6 @@
 @push('page-script')
     <script>
         $(document).ready(function() {
-            $('select').selectpicker();
 
             // jumlah kamar
             $('#touchSpin1').TouchSpin({
@@ -138,66 +137,6 @@
             // create modal error
             @if ($errors->any())
                 $('#createModal').modal('show');
-            @endif
-
-            // store message
-            @if (session()->has('store'))
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-                })
-
-                Toast.fire({
-                icon: 'success',
-                title: 'Sukses! Data berhasil ditambahkan'
-                })
-            @endif
-
-            // delete message
-            @if (session()->has('delete'))
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-                })
-
-                Toast.fire({
-                icon: 'success',
-                title: 'Oke data berhasil di hapus'
-                })
-            @endif
-
-            // update message
-            @if (session()->has('update'))
-                const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3500,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-                })
-
-                Toast.fire({
-                icon: 'success',
-                title: 'Sip data berhasil di ubah'
-                })
             @endif
 
             // delete action

@@ -1,0 +1,86 @@
+
+/* desktop */
+@media (min-width: 992px) {
+    .nav-link {
+        margin-right: 15px;
+        color: #000;
+    }
+    .card-fasilitas {
+        margin-top: -80px;
+    }
+    .tmbl {
+        margin-right: 10px;
+    }
+    .navbar-nav {
+        margin-left: auto;
+    }
+    .active::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 3px;
+        background-color: #007bff;
+        margin: auto;
+        margin-bottom: -8px;
+        padding-bottom: 3px;
+    }
+
+    .nav-link:hover::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 3px;
+        background-color: #007bff;
+        margin: auto;
+        margin-bottom: -8px;
+        padding-bottom: 3px;
+    }
+}
+
+/* mobile */
+@media (max-width: 992px) {
+    .booked-room {
+        margin-top: 20px;
+    }
+
+}
+
+.main-footer {
+    text-decoration: none;
+    color:rgb(99, 97, 97);
+}
+.main-footer a {
+    text-decoration: none !important;
+    color:rgb(99, 97, 97);
+}
+/* by sona template */
+.breadcrumb-text .bt-option a {
+	display: inline-block;
+	color: #19191a;
+	font-weight: 500;
+}
+.breadcrumb-text .bt-option .fa-angle-right {
+	color: #aaaab3;
+    margin-right: 5px;
+    margin-left: 3px;
+}
+.breadcrumb-text .bt-option span {
+	display: inline-block;
+	color: #aaaab3;
+}
+
+/* footer */
+.title-footer {
+    font-weight: bold;
+}
+.footer-parent {
+    background-color: rgb(16, 18, 29);
+}
+
+.main-footer {
+    color:rgb(99, 97, 97);
+}
+/* .copyright {
+    border-top: 1px solid rgb(99, 97, 97);
+} */
+

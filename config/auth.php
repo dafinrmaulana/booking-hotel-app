@@ -62,12 +62,20 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
+<<<<<<< HEAD
             'model' => App\Models\User::class,
+=======
+            'model' => App\Models\admin::class,
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
         ],
 
         // 'users' => [
         //     'driver' => 'database',
+<<<<<<< HEAD
         //     'table' => 'users',
+=======
+        //     'table' => 'admin',
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
         // ],
     ],
 

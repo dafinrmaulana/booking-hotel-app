@@ -1,0 +1,249 @@
+/* utilities */
+.jumbotron {
+    background-image: url("/Guest/asset/hotel-2.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+}
+.message-pass-regis {
+    margin-top: -10px;
+}
+
+.about h2 {
+    font-weight: bold;
+    font-family: 'poppins', sans-serif;
+}
+
+.card-title {
+    font-family: 'poppins', sans-serif;
+    font-weight: bolder;
+}
+.facilites-icon {
+    margin-top: -10px;
+}
+
+.navbar {
+    z-index: 1;
+    position: relative;
+    font-family: 'poppins', sans-serif;
+}
+
+.jumbotron .container {
+    z-index: 2;
+    position: relative;
+    color: #fff;
+}
+
+.jumbotron::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,.1));
+    position: absolute;
+    top: 0;
+}
+
+
+.checked {
+    color: orange;
+}
+.fa-star {
+    font-size: 13px;
+}
+
+.search-panel {
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: -90px;
+}
+
+/* services */
+.card-serv {
+    overflow: hidden;
+    background: none;
+}
+.card-services {
+    z-index: 3;
+}
+.card-body {
+    transition: .4s;
+}
+.title-serv {
+    left: -500px;
+    transition: .5s;
+}
+.card-services:hover .card-body {
+    transform: scale(1.5);
+}
+.card-services:hover .title-serv {
+    left: -2px;
+}
+.parent-services-detail {
+    z-index: 1;
+    width: 100%;
+    position: relative;
+}
+.services-detail {
+    transition: .5s !important;
+    width: 5rem;
+    opacity: 0;
+}
+.card-services:hover .services-detail {
+    margin-top: -80px;
+    margin-bottom: 80px;
+    opacity: 1;
+}
+.hotel-facilites-bg {
+    background-image: url('/Guest/asset/hotel-2.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    position: relative;
+}
+.hotel-facilites-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    display: block;
+}
+.title-footer {
+    font-weight: bold;
+}
+.footer-parent {
+    background-color: rgb(16, 18, 29);
+}
+
+.main-footer {
+    text-decoration: none;
+    color:rgb(99, 97, 97);
+}
+.main-footer a {
+    text-decoration: none !important;
+    color:rgb(99, 97, 97);
+}
+
+/* .copyright {
+    border-top: 1px solid rgb(99, 97, 97);
+} */
+
+/* bread crumb */
+.bread-crumb {
+    height: 200px;
+    /* background-image: url('/Guest/asset/hotel-2.jpg'); */
+    background-size: cover;
+    background-position: center;
+}
+.main-bread-crumb {
+    display: flex;
+}
+.main-bread-crumb li {
+    list-style: none;
+    text-transform: capitalize;
+    margin-left: 4px;
+    font-size: 20px;
+}
+/* desktop */
+@media (min-width: 992px) {
+    .card-serv {
+        height: 400px;
+    }
+    .hotel-facilites-bg {
+        background-image: url('/Guest/asset/hotel-2.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+        position: relative;
+    }
+    .nav-link {
+        margin-right: 15px;
+        text-shadow: 1px 1px 2px black;
+    }
+    .tmbl {
+        margin-right: 10px;
+    }
+    .navbar-nav {
+        margin-left: auto;
+    }
+    .active::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 3px;
+        background-color: #007bff;
+        margin: auto;
+        margin-bottom: -8px;
+        padding-bottom: 3px;
+    }
+
+    .nav-link:hover::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 3px;
+        background-color: #007bff;
+        margin: auto;
+        margin-bottom: -8px;
+        padding-bottom: 3px;
+    }
+
+    .jumbotron {
+        margin-top: -100px;
+        height: 640px;
+    }
+
+    .jumbotron .display-4 {
+        margin-top: 150px;
+    }
+
+    .nav-link {
+        color: white !important;
+    }
+    .tmbl-book {
+        width: 100%;
+    }
+}
+
+/* mobile */
+@media (max-width: 992px) {
+    .card-services:hover .services-detail {
+        margin-top: -50px;
+        margin-bottom: 50px;
+    }
+    .card-serv {
+        height: 250px;
+    }
+    .about {
+        margin-top: 10px;
+    }
+    .tmbl {
+        margin-top: 8px;
+    }
+    .jumbotron .display-4 {
+        margin-top: 50px;
+    }
+    .jumbotron {
+        height: 400px;
+    }
+    .carousel-item h1 {
+        font-size: 40px;
+    }
+    .search-panel {
+        margin-top: -150px;
+    }
+    .card-text {
+        font-size: 14px;
+    }
+    .btn-pesan {
+        font-size: 13px !important;
+    }
+    .card-title {
+        font-size: 16px;
+    }
+    .price {
+        font-size: 12px;
+    }
+}
+
+

@@ -3,7 +3,11 @@
     RuangAdmin - Ubah data Kamar
 @endsection
 @section('main')
+<<<<<<< HEAD
     <x-breadcrumb title="Manage tamu">
+=======
+    <x-breadcrumb title="Edit kamar">
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
         <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('manage-kamar.index') }}">Data Kamar</a></li>
         <li class="breadcrumb-item active" aria-current="page">Edit Kamar</li>
@@ -40,7 +44,11 @@
                             <div class="form-group col-12">
                                 <label for="keterangan">Keterangan</label>
                                 <textarea class="form-control" @error('keterangan') style="border: 1px solid red" @enderror name="keterangan"
+<<<<<<< HEAD
                                     id="keterangan" rows="3">{{ old('keterangan') }}</textarea>
+=======
+                                    id="keterangan" rows="3">{{ old('keterangan', $data->keterangan) }}</textarea>
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
                                 @error('keterangan')
                                     <small id="keterangan" class="form-text text-danger">{{ $message }}</small>
                                 @enderror
@@ -56,9 +64,18 @@
 @endsection
 
 @push('page-script')
+<<<<<<< HEAD
     <script>
         $(document).ready(function() {
 
+=======
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('select').selectpicker();
+
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
             // Harga kamar ==================
             function setInputFilter(textbox, inputFilter) {
                 ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(

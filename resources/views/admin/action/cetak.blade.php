@@ -28,7 +28,11 @@
             <div class="card mb-5" id="printContent" style="box-shadow: none !important">
                 <div class="row">
                     <div class="col-lg-7">
+<<<<<<< HEAD
                         <img src="{{ asset('img/ketaksaan-logo/Ketaksaan hotel-logos_transparent.png') }}" alt="ketaksaan hotel logo" width="210" class="mt-4 mx-3">
+=======
+                        <img src="{{ asset('img/ketaksaan-logo/Ketaksaan_hotel-logos_transparent.png') }}" alt="ketaksaan hotel logo" width="210" class="mt-4 mx-3">
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
                         <p class="mx-3 my-3" style="font-family: 'Source Sans Pro', sans-serif;">Tol Gate Fukushima, Ruko Kaguya C 88-99 Grand, Hatake, Kec. Konoha, Kab. Isekai, Jawa Script 46300</p>
                     </div>
                     <div class="col-lg-5 text-right">

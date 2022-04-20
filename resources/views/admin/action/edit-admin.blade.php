@@ -26,7 +26,11 @@
                         <div class="row">
                             <x-modal-input class="col-6" value="{{ old('nama', $data->nama) }}" name='nama' label="Nama Admin" type="text" />
                             <x-modal-input class="col-6" value="{{ old('username', $data->username) }}" name='username' label="Username" type="text" />
+<<<<<<< HEAD
                             <x-modal-input class="col-6" value="{{ old('password') }}" name='password' label="password" type="password" />
+=======
+                            <x-password-input class="col-6" value="{{ old('password') }}" name='password' label="password" type="password" />
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
                             <x-modal-input class="col-6" value="{{ old('password_confirmation') }}" name='password_confirmation' label="password" type="password" />
                             <div class="form-group col-12">
                                 <label for="Role">Role</label>

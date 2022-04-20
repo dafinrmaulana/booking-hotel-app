@@ -110,7 +110,11 @@ class FasilitasKamarController extends Controller
 
     public function search(Request $request) {
         $keyword = $request->search;
+<<<<<<< HEAD
         $kamar = kamar::where('nama_fasilitas', 'like', "%" . $keyword . "%")->paginate(5);
+=======
+        $fasilitas = fasilitasKamar::where('nama_fasilitas', 'like', "%" . $keyword . "%")->paginate(5);
+>>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
         return view('admin.manage-fasilitas-kamar', compact('fasilitas'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }

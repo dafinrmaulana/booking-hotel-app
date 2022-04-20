@@ -12,89 +12,145 @@
     </div>
 
     <div class="row mb-3">
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Earnings (Monthly)</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                            <div class="mt-2 mb-0 text-muted text-xs">
-                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                                <span>Since last month</span>
+        <div class="row">
+            <!-- Kamar tersedia Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Kamar tersedia</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $kamar }}</div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-primary"></i>
+                            <div class="col-auto">
+                                <i class="fas fa-bed fa-2x text-primary"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Earnings (Annual) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Sales</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">650</div>
-                            <div class="mt-2 mb-0 text-muted text-xs">
-                                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                                <span>Since last years</span>
+            <!-- New User Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Tamu baru</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $tamu }}</div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-shopping-cart fa-2x text-success"></i>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-info"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- New User Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">New User</div>
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">366</div>
-                            <div class="mt-2 mb-0 text-muted text-xs">
-                                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
-                                <span>Since last month</span>
+            <!-- New admin Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Admin</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $admin }}</div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-info"></i>
+                            <div class="col-auto">
+                                <i class="fas fa-user-shield fa-2x text-danger"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Pending Requests</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                            <div class="mt-2 mb-0 text-muted text-xs">
-                                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                                <span>Since yesterday</span>
+            <!-- New resepsionis Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Resepsionis</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $resepsionis }}</div>
                             </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-warning"></i>
+                            <div class="col-auto">
+                                <i class="fas fa-user-tie fa-2x text-success"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- Pending Requests Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Pemesanan kamar</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $unpaid }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkin Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Check IN</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $checkin }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-check-circle fa-2x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Checkout Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Check OUT</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $checkout }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-sign-out-alt fa-2x text-danger"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- fasilitas Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Fasilitas kamar</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $fasilitasKamar }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-mug-hot fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+    </div>
+    <div class="row">
 
         <!-- Area Chart -->
-        <div class="col-xl-8 col-lg-7">
+        <div class="col-xl-12 col-lg-12">
             <div class="card mb-4 pt-3">
                 <div class="card-body">
                     <div class="chart-area">
@@ -103,68 +159,34 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-lg-5">
-            <div class="card mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Products Sold</h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <div class="small text-gray-500">Oblong T-Shirt
-                            <div class="small float-right"><b>600 of 800 Items</b></div>
-                        </div>
-                        <div class="progress" style="height: 12px;">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="small text-gray-500">Gundam 90'Editions
-                            <div class="small float-right"><b>500 of 800 Items</b></div>
-                        </div>
-                        <div class="progress" style="height: 12px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 70%" aria-valuenow="70"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="small text-gray-500">Rounded Hat
-                            <div class="small float-right"><b>455 of 800 Items</b></div>
-                        </div>
-                        <div class="progress" style="height: 12px;">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="small text-gray-500">Indomie Goreng
-                            <div class="small float-right"><b>400 of 800 Items</b></div>
-                        </div>
-                        <div class="progress" style="height: 12px;">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="small text-gray-500">Remote Control Car Racing
-                            <div class="small float-right"><b>200 of 800 Items</b></div>
-                        </div>
-                        <div class="progress" style="height: 12px;">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-center">
-                    <a class="m-0 small text-primary card-link" href="#">View More <i
-                            class="fas fa-chevron-right"></i></a>
-                </div>
-            </div>
-        </div>
     </div>
  @endsection
 
  @push('vendor')
  <script src="{{ asset('RA/vendor/chart.js/Chart.min.js') }}"></script>
- <script src="{{ asset('RA/js/demo/chart-area-demo.js') }}"></script>
  @endpush
+ @push('page-script')
+ @include('admin.data_chart', ['data_chart'=>$data_chart])
+ <script>
+    // greeting message
+    @if (session()->has('greeting'))
+        const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+        })
+
+        Toast.fire({
+        icon: 'success',
+        title: "Sukses Login! Selamat datang {{ auth()->user()->nama }} "
+        })
+    @endif
+ </script>
+ @endpush
+

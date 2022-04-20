@@ -4,18 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=1080, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="{{ asset('RA/img/logo/logo.png') }}" rel="icon">
     <title>@yield('title')</title>
+    <link href="{{ asset('img/ketaksaan-logo/ketaksaan-logo-white.png') }}" rel="icon">
     <link href="{{ asset('RA/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('RA/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('customlibrary/sweetalert/dist/sweetalert2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('customlibrary/fancybox/fancybox.css') }}">
-    <link href="{{ asset('RA/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
     <link href="{{ asset('RA/css/ruang-admin.css') }}" rel="stylesheet">
     <link href="{{ asset('RA/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('RA/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('customlibrary/sweetalert/dist/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('customlibrary/fancybox/fancybox.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,16 +28,20 @@
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                    <img src="{{ asset('RA/img/logo/logo2.png') }}">
+                    <img src="{{ asset('img/ketaksaan-logo/ketaksaan-logo-white.png') }}">
                 </div>
-                <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+                <div class="sidebar-brand-text mx-3">Ketaksaan Admin</div>
             </a>
             <hr class="sidebar-divider my-0">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('dashboard.index') }}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+
+            <li class="nav-item {{ 'admin/dashboard' == request()->path() ? 'active' : '' }}">
+                <a class="nav-link"
+                href="{{ route('dashboard.index') }}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
             </li>
+
             <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 Features
@@ -48,16 +52,49 @@
                     <span>Pemesanan</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link {{ 'admin/manage-kamar', 'admin/manage-fasilitas' == request()->path() ? '' : '' }}"
-                    href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-                    aria-controls="collapseTable">
-                    <i class="fas fa-bed"></i>
-                    <span>Kamar</span>
+
+
+            @if (Auth::user()->role == 'admin')
+            <li class="nav-item {{ 'admin/manage-fasilitas-hotel' == request()->path() ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('manage-fasilitas-hotel.index') }}">
+                    <i class="fab fa-accusoft"></i>
+                    <span>Fasilitas Hotel</span>
                 </a>
-                <div id="collapseTable"
-                    class="collapse {{ 'admin/manage-kamar' == request()->path() ? 'show' : '' }} {{ 'admin/manage-fasilitas-kamar' == request()->path() ? 'show' : '' }}"
-                    aria-labelledby="headingTable" data-parent="#accordionSidebar">
+            </li>
+            @endif
+
+            @if (Auth::user()->role == 'admin')
+            <li class="nav-item {{ 'admin/manage-about' == request()->path() ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('manage-about.index') }}">
+                    <i class="fas fa-hotel"></i>
+                    <span>About</span>
+                </a>
+            </li>
+            @endif
+
+            @if (Auth::user()->role == 'admin')
+            <li class="nav-item">
+                <a class="nav-link
+                @if ( 'admin/manage-admin' == request()->path() )
+                    collapsed
+                @elseif ( 'admin/manage-tamu' == request()->path() )
+                    collapsed
+                @elseif ( 'admin/manage-pemesanan' == request()->path() )
+                    collapsed
+                @endif"
+                href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+                aria-controls="collapseTable">
+                <i class="fas fa-bed"></i>
+                <span>Kamar</span>
+                </a>
+                <div id="collapseTable" class="collapse
+                @if ('admin/manage-kamar' == request()->path())
+                    show
+                @elseif ('admin/manage-fasilitas-kamar' == request()->path())
+                    show
+                @endif"
+                aria-labelledby="headingTable"
+                data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Kamar</h6>
                         <a class="collapse-item {{ 'admin/manage-kamar' == request()->path() ? 'active' : '' }}"
@@ -67,8 +104,18 @@
                     </div>
                 </div>
             </li>
+            @endif
+
+            @if (Auth::user()->role == 'admin')
             <li class="nav-item">
-                <a class="nav-link {{ 'admin/manage-tamu', 'admin/manage-admin' == request()->path() ? '' : '' }}"
+                <a class="nav-link
+                @if ( 'admin/manage-kamar' == request()->path() )
+                    collapsed
+                @elseif ( 'admin/manage-fasilitas-kamar' == request()->path() )
+                    collapsed
+                @elseif ( 'admin/manage-pemesanan' == request()->path() )
+                    collapsed
+                @endif"
                     href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
                     aria-controls="collapseForm">
                     <i class="fab fa-fw fa-wpforms"></i>
@@ -86,6 +133,8 @@
                     </div>
                 </div>
             </li>
+            @endif
+
             <hr class="sidebar-divider mt-auto">
             <div class="version" id="version-ruangadmin"></div>
         </ul>
@@ -127,7 +176,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img class="img-profile rounded-circle" src="{{ asset('RA/img/boy.png') }}"
                                     style="max-width: 60px">
-                                <span class="ml-2 d-none d-lg-inline text-white small">Maman Ketoprak</span>
+                                <span class="ml-2 d-none d-lg-inline text-white small">{{ Auth::user()->nama }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
@@ -165,12 +214,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Are you sure you want to logout?</p>
+                                    <p>Yakin mau logout?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-outline-primary"
                                         data-dismiss="modal">Cancel</button>
-                                    <a href="login.html" class="btn btn-primary">Logout</a>
+                                    <a href="{{ route('auth.logout') }}" class="btn btn-danger">Logout</a>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +255,6 @@
     <script src="{{ asset('RA/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('RA/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('RA/js/ruang-admin.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
     {{-- fasilitas --}}
     {{-- <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.2.13/dist/semantic.min.js"></script> --}}
@@ -237,7 +285,7 @@
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
-                timer: 3500,
+                timer: 3600,
                 timerProgressBar: true,
                 didOpen: (toast) => {
                 toast.addEventListener('mouseenter', Swal.stopTimer)
