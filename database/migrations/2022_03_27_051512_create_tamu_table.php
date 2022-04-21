@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('nama_tamu')->nullable();
             $table->string('email');
             $table->string('password');
-            $table->string('username')->nullable();
+            $table->string('token')->nullable();
             $table->char('no_hp')->nullable();
             $table->string('remember_token')->nullable();
-            $table->string('email_verified_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
     }

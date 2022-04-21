@@ -14,12 +14,8 @@ class FasilitasHotelController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        //
-=======
         $fasilitas = fasilitasHotel::paginate(10);
         return view('admin.manage-fasilitas-hotel', compact('fasilitas'));
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 
     /**
@@ -29,11 +25,7 @@ class FasilitasHotelController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-        //
-=======
         abort(404);
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 
     /**
@@ -42,11 +34,6 @@ class FasilitasHotelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function store(Request $request)
-    {
-        //
-=======
 
     public function store(Request $request)
     {
@@ -70,7 +57,6 @@ class FasilitasHotelController extends Controller
         $namaAsal->move(public_path().'/img/fasilitasHotel', $namaBaru);
         fasilitasHotel::create($validatedData);
         return back()->with('store', 'store');
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 
     /**
@@ -79,30 +65,15 @@ class FasilitasHotelController extends Controller
      * @param  \App\Models\fasilitasHotel  $fasilitasHotel
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function show(fasilitasHotel $fasilitasHotel)
-    {
-        //
-=======
     public function show($id)
     {
         $data = fasilitasHotel::find($id);
         return view('admin.action.detail-fasilitas-hotel', compact('data'));
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 
     /**
      * Show the form for editing the specified resource.
-<<<<<<< HEAD
      *
-     * @param  \App\Models\fasilitasHotel  $fasilitasHotel
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(fasilitasHotel $fasilitasHotel)
-    {
-        //
-=======
-     *  
      * @param  \App\Models\fasilitasHotel  $fasilitasHotel
      * @return \Illuminate\Http\Response
      */
@@ -110,7 +81,6 @@ class FasilitasHotelController extends Controller
     {
         $data = fasilitasHotel::find($id);
         return view('admin.action.edit-fasilitas-hotel', compact('data'));
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 
     /**
@@ -120,11 +90,6 @@ class FasilitasHotelController extends Controller
      * @param  \App\Models\fasilitasHotel  $fasilitasHotel
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function update(Request $request, fasilitasHotel $fasilitasHotel)
-    {
-        //
-=======
     public function update(Request $request, $id)
     {
         $fasilitasHotel = fasilitasHotel::findorfail($id);
@@ -160,7 +125,6 @@ class FasilitasHotelController extends Controller
         }
         $fasilitasHotel->update($data);
         return redirect('admin/manage-fasilitas-hotel')->with('update', 'update');
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 
     /**
@@ -169,11 +133,6 @@ class FasilitasHotelController extends Controller
      * @param  \App\Models\fasilitasHotel  $fasilitasHotel
      * @return \Illuminate\Http\Response
      */
-<<<<<<< HEAD
-    public function destroy(fasilitasHotel $fasilitasHotel)
-    {
-        //
-=======
     public function destroy($id)
     {
         $fasilitasHotel = fasilitasHotel::findorfail($id);
@@ -191,6 +150,5 @@ class FasilitasHotelController extends Controller
         $keyword = $request->search;
         $fasilitas = fasilitasHotel::where('nama_fasilitas_hotel', 'like', "%" . $keyword . "%")->paginate(5);
         return view('admin.manage-fasilitas-hotel', compact('fasilitas'))->with('i', (request()->input('page', 1) - 1) * 5);
->>>>>>> 7782819007e372ce748b0bdd092c628d1a01019d
     }
 }

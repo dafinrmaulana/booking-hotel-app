@@ -13,6 +13,7 @@
     <link href="{{ asset('Guest/bootstrap-4/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('RA/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="{{ asset('customlibrary/fancybox/fancybox.css') }}">
+    <link rel="stylesheet" href="{{ asset('customlibrary/sweetalert/dist/sweetalert2.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,18 +38,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link {{ '/' == request()->path() ? 'active' : '' }}" href="{{ route('guest.home') }}">Home</a>
+                    <a class="nav-link
+                    {{ '/home' == request()->path() ? 'active' : '' }}
+                    {{ '/' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('guest.home') }}">Home</a>
+
                     <a class="nav-link {{ 'rooms' == request()->path() ? 'active' : '' }}" href="{{ route('guest.rooms') }}">Rooms</a>
                     <a class="nav-link" href="#">Facilites</a>
                     <a class="nav-link" href="#">About</a>
                     @if (Auth::user())
-                    <a class="nav-link" href="#">{{ Auth::user()->nama_tamu }}</a>
+                    <div class="dropdown">
+                        <p class=" nav-item dropdown-toggle text-capitalize btn"
+                        href="#" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-expanded="true">{{ Auth::user()->nama_tamu }}</p>
+                        <div class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="{{ route('logout.guest') }}"> <i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a class="dropdown-item" href="#"> <i class="fas fa-user-alt"></i> Profile</a>
+                        </div>
+                    </div>
                     @else
                     <button type="button" class="btn btn-primary tmbl rounded-pill" data-toggle="modal" data-target="#loginModal">Login</button>
                     @endif
                 </div>
             </div>
         </nav>
+
     </div>
     {{-- end top bar --}}
 
@@ -68,17 +82,17 @@
                         <h1 class="h4 text-gray-900">Login</h1>
                         <small>Welcome Back !</small>
                     </div>
-                    <form class="user" action="{{ route('auth.login') }}" method="post">
+                    <form class="user" action="{{ route('login.guest') }}" method="post">
                         @csrf
 
                         <div class="form-group">
-                        <input type="text" name="username" class="form-control" id="username_login" aria-describedby="usename"
-                            placeholder="Enter Username">
+                        <input type="text" name="email_login" class="form-control" id="email_login" aria-describedby="email_login"
+                            placeholder="Enter Email">
                         </div>
 
                         <div class="form-group">
                         <div class="input-group mb-3">
-                            <input type="password" name="password"
+                            <input type="password" name="password_login"
                                 class="form-control @error('password') is-invalid @enderror" id="password_login"
                                 placeholder="Enter password" aria-describedby="basic-addon2">
                             <div class="input-group-append show-trigger">
@@ -97,7 +111,7 @@
                     </form>
                     <hr>
                     <div class="text-center">
-                        <a class="font-weight-bold small" href="register.html">Forgot password ?</a>
+                        <a class="font-weight-bold small" href="{{ route('guest-password.request') }}">Forgot password ?</a>
                     </div>
                     </div>
                 </div>
@@ -127,31 +141,38 @@
                     @csrf
 
                     <div class="form-group">
-                      <input type="email" name="email_regist" value="{{ old('email_regist') }}" class="form-control @error('email_regist') is-invalid @enderror" id="email" aria-describedby="usename"
-                        placeholder="Enter email">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </div>
+                            <input type="email" name="email_regist" value="{{ old('email_regist') }}" class="form-control @error('email_regist') is-invalid @enderror" id="email" aria-describedby="usename"
+                              placeholder="Enter email">
+                        </div>
                         @error('email_regist')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                      <input type="text" name="no_hp_regist" value="{{ old('no_hp_regist') }}" class="form-control @error('no_hp_regist') is-invalid @enderror" id="username" aria-describedby="usename"
-                        placeholder="Enter Phone Number">
-                        @error('no_hp_regist')
-                        <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">
+                                    <i class="fas fa-user-alt"></i>
+                                </span>
+                            </div>
+                            <input type="text" name="nama_regist" value="{{ old('nama_regist') }}" class="form-control @error('nama_regist') is-invalid @enderror" id="username" aria-describedby="usename"
+                            placeholder="Enter your Full name">
+                        </div>
 
-                    <div class="form-group">
-                      <input type="text" name="nama_regist" value="{{ old('nama_regist') }}" class="form-control @error('nama_regist') is-invalid @enderror" id="username" aria-describedby="usename"
-                        placeholder="Enter your Full name">
                         @error('nama_regist')
                         <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
 
                     <div class="form-group">
-                      <div class="input-group mb-3">
+                      <div class="input-group">
                           <input type="password" name="password_regist"
                               class="form-control @error('password_regist') is-invalid @enderror" id="password_regist"
                               placeholder="Enter password" aria-describedby="basic-addon2">
@@ -181,7 +202,7 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="font-weight-bold small" href="register.html">Forgot password ?</a>
+                    <a href="#" class="font-weight-bold small" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#loginModal">already have account?</a>
                   </div>
                 </div>
               </div>
@@ -270,7 +291,8 @@
 
         </div>
     </div> --}}
-    <footer class="sticky-footer footer-parent py-3">
+
+    <footer class="sticky-footer footer-parent py-3 mb-0">
         <div class="container my-auto">
             <div class="copyright text-center my-auto copyright main-footer">
                 <span>copyright &copy;
@@ -287,9 +309,12 @@
     <script src="{{ asset('RA/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('RA/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('customlibrary/fancybox/fancybox.umd.js') }}"></script>
+
+    {{-- library custom --}}
+    <script src="{{ asset('customlibrary/sweetalert/dist/sweetalert2.all.min.js') }}"></script>
     <script>
         // sign up error
-        @if ($errors->has('username_regist'))
+        @if ($errors->has('nama_regist'))
             $('#signinModal').modal('show');
         @endif
         @if ($errors->has('email_regist'))
@@ -300,6 +325,14 @@
         @endif
         @if ($errors->has('password_confirmation_regist'))
             $('#signinModal').modal('show');
+        @endif
+
+        // login error
+        @if ($errors->has('email_login'))
+            $('#loginModal').modal('show');
+        @endif
+        @if ($errors->has('password'))
+            $('#loginModal').modal('show');
         @endif
 
         // show hide password
@@ -341,6 +374,65 @@
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
+            timer: 6700,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'info',
+            title: 'Account Has Been Registered, Please Check Your Email To Verify The Email'
+            })
+        @endif
+
+        // verify sent message
+        @if (session()->has('greetingReset'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3600,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'info',
+            title: 'Password has been reset! Please login again'
+            })
+        @endif
+        // verify sent message
+        @if (session()->has('sentVerify'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3600,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'info',
+            title: 'Verification Link has been Sent!'
+            })
+        @endif
+
+        // login verified message
+        @if (session()->has('greetingVerified'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
             timer: 3600,
             timerProgressBar: true,
             didOpen: (toast) => {
@@ -351,8 +443,51 @@
 
             Toast.fire({
             icon: 'success',
-            title: 'Selamat! Akun berhasil di daftarkan'
+            title: 'account verification has been successful welcome to the Ketaksaan Hotel!'
             })
+        @endif
+
+        // greetin message
+        @if (session()->has('greeting'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3600,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'success',
+            title: "Login Success! Welcome Back {{ auth()->user()->nama_tamu }}"
+            })
+        @endif
+
+        // wrong message
+        @if (session()->has('wrong'))
+            const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3600,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+
+            Toast.fire({
+            icon: 'error',
+            title: 'Email or password is invalid'
+            });
+
+            $('#loginModal').modal('show');
+
         @endif
     </script>
 </body>

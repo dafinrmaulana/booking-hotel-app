@@ -3,10 +3,10 @@
 @media (min-width: 992px) {
     .nav-link {
         margin-right: 15px;
-        color: #000;
+        /* color: #000; */
     }
-    .card-fasilitas {
-        /* margin-top: -80px; */
+    .nav-item {
+        color: #aaaab3 !important;
     }
     .tmbl {
         margin-right: 10px;
@@ -42,9 +42,11 @@
     .booked-room {
         margin-top: 20px;
     }
+    .dropdown {
+        margin-left: -13px;
+    }
 
 }
-
 .main-footer {
     text-decoration: none;
     color:rgb(99, 97, 97);
@@ -75,6 +77,11 @@
 }
 .footer-parent {
     background-color: rgb(16, 18, 29);
+}
+
+.card-verify {
+    height: 516px;
+    background-color: #637bbd;
 }
 
 .main-footer {

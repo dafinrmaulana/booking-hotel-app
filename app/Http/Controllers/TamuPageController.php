@@ -7,11 +7,11 @@ use App\Models\kamar;
 use App\Models\fasilitasHotel;
 use App\Models\about;
 use App\Models\fasilitasKamar;
-use App\Mail\contactUs;
 use App\Models\tamu;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class TamuPageController extends Controller
 {
@@ -70,18 +70,22 @@ class TamuPageController extends Controller
 
     public function register_guest(Request $request) {
         $request->validate([
-            'nama_regist'=>'nullable|min:3|not_regex:/[0-9!@#$%^&*]/',
-            'username_regist'=>'nullable|min:3|not_regex:/[!@#$%^&* ]/|unique:tamu,username',
-            'email_regist'=>'required|email|min:3|unique:tamu,email',
-            'no_hp_regist'=>'required|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
+            'nama_regist'=>'required|min:3|not_regex:/[0-9!@#$%^&*]/',
+            'email_regist'=>'required|email|min:3|unique:tamu,email|email:dns',
+            'no_hp_regist'=>'nullable|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
             'password_regist'=>'required|min:6|max:1024|same:password_confirmation_regist|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
         ]);
-        tamu::create([  
-            'nama'=>$request->nama_regist,
+        $user = tamu::create([
+            'nama_tamu'=>$request->nama_regist,
             'email'=>$request->email_regist,
             'no_hp'=>$request->no_hp_regist,
-            'password'=>$request->password_regist,
+            'password'=>bcrypt($request->password_regist),
+            'remember_token'=>Str::random(40),
+            'token'=>Str::random(46),
         ]);
-        return back()->with('regist', 'regist');
+        event(new Registered($user));
+        Auth::login($user);
+
+        return redirect('/')->with('regist', 'regist');
     }
 }
