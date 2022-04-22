@@ -73,10 +73,10 @@ class TamuPageController extends Controller
             'nama_regist'=>'required|min:3|not_regex:/[0-9!@#$%^&*]/',
             'email_regist'=>'required|email|min:3|unique:tamu,email|email:dns',
             'no_hp_regist'=>'nullable|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
-            'password_regist'=>'required|min:6|max:1024|same:password_confirmation_regist|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
+            'password_regist'=>'required|min:8|max:1024|same:password_confirmation_regist|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
         ]);
         $user = tamu::create([
-            'nama_tamu'=>$request->nama_regist,
+            'nama_pemesan'=>$request->nama_regist,
             'email'=>$request->email_regist,
             'no_hp'=>$request->no_hp_regist,
             'password'=>bcrypt($request->password_regist),

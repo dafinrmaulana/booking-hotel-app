@@ -15,7 +15,7 @@ class tamu extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     protected $table = 'tamu';
     protected $primary_key = 'id';
-    protected $fillable = ['nama_tamu','username','email','password','no_hp','remember_token', 'email_veified_at'];
+    protected $fillable = ['nama_pemesan','username','email','password','no_hp','remember_token', 'email_veified_at'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',

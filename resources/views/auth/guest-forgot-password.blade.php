@@ -25,7 +25,7 @@
 @section('main')
 <div class="container">
 	<div class="row justify-content-center card-verify mt-3 mb-5">
-        <div class="col-10 bg-secondary mb-4">
+        <div class="col-10 mb-4">
             <div class="row justify-content-center">
                 <div class="col-7 p-5">
                     <div class="card border-0 shadow-lg">
@@ -62,7 +62,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                  <button type="submit" class="btn btn-primary btn-block">Send Email</button>
+                                  <button type="submit" class="btn btn-dark btn-block">Send Email</button>
                                 </div>
                             </form>
                         </div>

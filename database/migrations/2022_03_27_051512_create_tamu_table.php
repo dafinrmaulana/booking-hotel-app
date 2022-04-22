@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tamu', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_tamu')->nullable();
+            $table->string('nama_pemesan')->nullable();
             $table->string('email');
             $table->string('password');
             $table->string('token')->nullable();

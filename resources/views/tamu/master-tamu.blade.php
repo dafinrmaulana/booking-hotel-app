@@ -50,7 +50,7 @@
                     <div class="dropdown">
                         <p class=" nav-item dropdown-toggle text-capitalize btn"
                         href="#" id="dropdownMenuButton" data-toggle="dropdown"
-                        aria-expanded="true">{{ Auth::user()->nama_tamu }}</p>
+                        aria-expanded="true">{{ Auth::user()->nama_pemesan }}</p>
                         <div class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ route('logout.guest') }}"> <i class="fas fa-sign-out-alt"></i> Logout</a>
                             <a class="dropdown-item" href="#"> <i class="fas fa-user-alt"></i> Profile</a>
@@ -191,8 +191,8 @@
                     <div class="form-group">
                       <div class="input-group mb-3">
                           <input type="password" name="password_confirmation_regist"
-                              class="form-control @error('password') is-invalid @enderror" id="password"
-                              placeholder="Confirm the password" aria-describedby="basic-addon2">
+                            class="form-control @error('password') is-invalid @enderror" id="password"
+                            placeholder="Confirm the password" aria-describedby="basic-addon2">
                       </div>
                     </div>
 
@@ -388,7 +388,7 @@
             })
         @endif
 
-        // verify sent message
+        // password reset message
         @if (session()->has('greetingReset'))
             const Toast = Swal.mixin({
             toast: true,
