@@ -12,37 +12,48 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
+use App\Models\pemesanan;
+use Illuminate\Support\Carbon;
 
 class TamuPageController extends Controller
 {
+    // ----------------------------------Home page----------------------------------
     public function home() {
         $kamar = kamar::paginate(6);
         $fasilitas = fasilitasHotel::paginate(4);
         $about = about::first();
         return view('tamu.home', compact('kamar', 'fasilitas', 'about'));
     }
+    // ----------------------------------End Home page----------------------------------
 
 
+    // ----------------------------------Rooms page----------------------------------
     public function rooms() {
         $kamar = kamar::paginate(6);
         return view('tamu.rooms', compact('kamar'));
     }
+    // ----------------------------------End Rooms page----------------------------------
 
 
+    // ----------------------------------Rooms Detail----------------------------------
     public function detail_rooms($id) {
         $kamar = kamar::with('fasilitas')->where('id', $id)->first();
         $about = about::first();
         $faska = fasilitasKamar::all();
         return view('tamu.detail-rooms', compact('kamar', 'about', 'faska'));
     }
+    // ----------------------------------End Rooms Detail----------------------------------
 
 
+    // ----------------------------------Hotel Facilities----------------------------------
     public function detail_fasilitas_hotel($id) {
         $fasilitas = fasilitasHotel::findorfail($id);
         return view('tamu.detail-fasilitas-hotel', compact('fasilitas'));
     }
+    // ----------------------------------End Hotel Facilities----------------------------------
 
 
+    // ----------------------------------Contact Us----------------------------------
     public function kirimEmail(Request $request) {
         $request->validate([
             'name'=>'required',
@@ -67,7 +78,10 @@ class TamuPageController extends Controller
         });
         return back()->with('email', 'email');
     }
+    // ----------------------------------End Contact Us----------------------------------
 
+
+    // ----------------------------------Sign IN----------------------------------
     public function register_guest(Request $request) {
         $request->validate([
             'nama_regist'=>'required|min:3|not_regex:/[0-9!@#$%^&*]/',
@@ -87,5 +101,64 @@ class TamuPageController extends Controller
         Auth::login($user);
 
         return redirect('/')->with('regist', 'regist');
+    }
+    // ----------------------------------End Sign IN----------------------------------
+
+
+    // make room order
+    public function makeRoomOrder(Request $request, $id, pemesanan $pemesanan) {
+        $kamar = kamar::select('id', 'jumlah', 'nama_kamar')->where('id', $id)->first();
+        $jumlah = $kamar->jumlah;
+        $nama = $kamar->nama_kamar;
+        $kamar_id = $kamar->id;
+
+        $request->validate([
+            'nama_tamu'            => 'required|not_regex:/[0-9!@#$%^&*]/|min:3',
+            'jumlah_kamar_dipesan' => "required|numeric|min:1|max:{$jumlah}",
+            'no_hp'                => "nullable|not_regex:/[A-Za-z]/|min:10|max:15",
+        ],
+        [
+            'nama_tamu.required'            => 'The Guest Name field is required.',
+            'nama_tamu.not_regex'           => 'The Guest Name field is cannot contain numbers or special characters. ( 0-9!@#$%^&* )',
+            'nama_tamu.not_regex'           => 'The Guest Name must be at least 3 characters.',
+            'jumlah_kamar_dipesan.required' => 'The Total Room Order field is required.',
+            'jumlah_kamar_dipesan.numeric'  => 'The Total Room Order must be a number.',
+            'jumlah_kamar_dipesan.min'      => 'At least order 1 room',
+            'jumlah_kamar_dipesan.max'      => "For now there are only {$jumlah} {$nama} rooms available.",
+            'no_hp.min'                     => 'The Phone number must be at least 10 digits.',
+            'no_hp.max'                     => 'The Phone number must not be greater than 15.',
+            'no_hp.not_regex'               => 'The Phone number field is cannot contain letters.',
+        ]);
+
+        $pemesanan = new pemesanan;
+        $pemesanan->nama_pemesan = Auth::user()->nama_pemesan;
+        $pemesanan->nama_tamu = ($request->nama_tamu);
+        $pemesanan->email = Auth::user()->email;
+        $pemesanan->tanggal_checkin = ($request->checkin);
+        $pemesanan->tanggal_checkout = ($request->checkout);
+        $pemesanan->tanggal_dipesan = Carbon::now();
+        $pemesanan->jumlah_kamar_dipesan = ($request->jumlah_kamar_dipesan);
+
+        if($request->jumlah_kamar_dipesan) {
+            $kamar->update([
+                'jumlah_kamar' => $kamar->jumlah_kamar - $request->jumlah_kamar_dipesan
+            ]);
+        }
+
+        $pemesanan->status_pemesan = 'unpaid';
+        $pemesanan->no_hp = ($request->no_hp);
+        $pemesanan->kamar_id = $kamar_id;
+        $pemesanan->save();
+
+
+        if ($pemesanan) {
+            return redirect()->route('guest.paymentDetail', [$pemesanan]);
+        }
+    }
+
+    public function makeRoomOrderDetail($id)
+    {
+        $pemesanan = pemesanan::with('kamar')->find($id);
+        return view('tamu.detail-order', ['pemesanan' => $pemesanan]);
     }
 }

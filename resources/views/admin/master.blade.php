@@ -54,7 +54,7 @@
             </li>
 
 
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::guard('admin')->user()->role == 'admin')
             <li class="nav-item {{ 'admin/manage-fasilitas-hotel' == request()->path() ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('manage-fasilitas-hotel.index') }}">
                     <i class="fab fa-accusoft"></i>
@@ -63,7 +63,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::guard('admin')->user()->role == 'admin')
             <li class="nav-item {{ 'admin/manage-about' == request()->path() ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('manage-about.index') }}">
                     <i class="fas fa-hotel"></i>
@@ -72,7 +72,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::guard('admin')->user()->role == 'admin')
             <li class="nav-item">
                 <a class="nav-link
                 @if ( 'admin/manage-admin' == request()->path() )
@@ -106,7 +106,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::guard('admin')->user()->role == 'admin')
             <li class="nav-item">
                 <a class="nav-link
                 @if ( 'admin/manage-kamar' == request()->path() )

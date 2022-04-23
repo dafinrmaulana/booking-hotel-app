@@ -489,5 +489,7 @@
             $('#loginModal').modal('show');
 
         @endif
+
     </script>
+    @stack('guest-page-script')
 </body>

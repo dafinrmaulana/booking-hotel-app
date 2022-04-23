@@ -20,12 +20,52 @@ Detail Rooms
         </div>
     </div>
 </div>
+
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-lg-12 col-12">
+            <div class="card shadow">
+                <div class="container">
+                    <form action="{{ route('guest.roomOrder', $kamar->id) }}" method="post">
+                        @csrf
+                    <div class="row">
+                        <div class="col-lg-6 p-2">
+                            <div class="form-group">
+                                <label for="checkin">Check IN</label>
+                                <input type="date"
+                                class="form-control"
+                                placeholder="Check IN"
+                                name="checkin"
+                                id="checkin"
+                                value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}"
+                                aria-describedby="checkin">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 p-2">
+                            <div class="form-group">
+                                <label for="checkin">Check OUT</label>
+                                <input type="date"
+                                name="checkout"
+                                class="form-control"
+                                placeholder="Check OUT"
+                                value="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d')}}"
+                                id="checkout" aria-describedby="checkout">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('main')
     <div class="container">
         <div class="row mb-3 mt-5">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 @if ($kamar->foto == null)
                 <img style="cursor: pointer"
                 data-fancybox data-src
@@ -40,90 +80,85 @@ Detail Rooms
                 @endif
             </div>
 
-            <div class="col-lg-6 booked-room">
+            <div class="col-lg-4 booked-room">
                 <div class="card">
                     <div class="card-header">
                         <h5>Booking Your Rooms Now</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-alt"></i></span>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-alt"></i></span>
+                                            </div>
+
+                                            <input type="text"
+                                            class="form-control @error('nama_tamu') is-invalid @enderror"
+                                            placeholder="Guest Name"
+                                            name="nama_tamu"
+                                            aria-label="Guest Name"
+                                            aria-describedby="basic-addon1">
+                                        </div>
+                                        @error('nama_tamu')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
-
-                                    <input type="text" class="form-control" placeholder="Guest Name" aria-label="Guest Name" aria-describedby="basic-addon1">
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-book"></i></span>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-book"></i></span>
+                                            </div>
+
+                                            <input type="number"
+                                            class="form-control @error('jumlah_kamar_dipesan') is-invalid @enderror"
+                                            placeholder="Total Room Order"
+                                            name="jumlah_kamar_dipesan"
+                                            aria-label="Guest Name"
+                                            aria-describedby="basic-addon1">
+                                        </div>
+                                        @error('jumlah_kamar_dipesan')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
-
-                                    <input type="number" class="form-control" placeholder="Total" aria-label="Total" aria-describedby="basic-addon1">
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-check"></i></span>
+                                <div class="col-12">
+                                    <div class="form-group mb-3">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
+                                            </div>
+
+                                            <input type="text"
+                                            class="form-control @error('no_hp') is-invalid @enderror"
+                                            placeholder="Phone Number ( optional )"
+                                            name="no_hp"
+                                            id="no_hp"
+                                            aria-label="Guest Name"
+                                            aria-describedby="basic-addon1">
+                                        </div>
+                                        @error('no_hp')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
-                                    <input type="text" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Check IN" aria-label="Check IN" aria-describedby="basic-addon1">
                                 </div>
-                            </div>
 
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar-day"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Check OUT" aria-label="Check IN" aria-describedby="basic-addon1">
+                                @if (Auth::user()->email_verified_at != null)
+                                <div class="col-12">
+                                <button type="submit" class="btn btn-primary">Book Now</button>
                                 </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-phone"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Check OUT" aria-label="Check IN" aria-describedby="basic-addon1">
+                                @else
+                                <div class="col-12">
+                                <button type="button" class="btn btn-dark tmbl" data-toggle="modal" data-target="#loginModal">Login / Verified First</button>
                                 </div>
+                                @endif
                             </div>
-
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user-tie"></i></span>
-                                    </div>
-                                    <input type="text" class="form-control" placeholder="Check OUT" aria-label="Check IN" aria-describedby="basic-addon1">
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
-                                    </div>
-                                    <input type="email" class="form-control" placeholder="Email" aria-label="Check IN" aria-describedby="basic-addon1">
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-envelope"></i></span>
-                                    </div>
-                                    <input type="email" class="form-control" placeholder="Confirm Email" aria-label="Check IN" aria-describedby="basic-addon1">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary">Book Now</button>
-                            </div>
-                        </div>
+                        </form>
 
                     </div>
                 </div>
@@ -145,6 +180,11 @@ Detail Rooms
                                 <div class="col-lg-3">Price</div>
                                 <div class="col-lg-1">:</div>
                                 <div class="col-lg-8"><strong>Rp. {{ number_format($kamar->harga, 2, ',', '.') }}</strong></div>
+                            </div>
+                            <div class="row pt-2">
+                                <div class="col-lg-3">Rooms Available</div>
+                                <div class="col-lg-1">:</div>
+                                <div class="col-lg-8"><strong>{{ $kamar->jumlah }} Are available</strong></div>
                             </div>
                             <div class="row pt-2">
                                 <div class="col-lg-3">About this room</div>
@@ -176,3 +216,29 @@ Detail Rooms
         </div>
     </div>
 @endsection
+
+@push('guest-page-script')
+<script>
+    // ----------------------------------Guest Page----------------------------------
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(
+            function(event) {
+                textbox.addEventListener(event, function() {
+                    if (inputFilter(this.value)) {
+                        this.oldValue = this.value;
+                        this.oldSelectionStart = this.selectionStart;
+                        this.oldSelectionEnd = this.selectionEnd;
+                    } else if (this.hasOwnProperty("oldValue")) {
+                        this.value = this.oldValue;
+                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                    } else {
+                        this.value = "";
+                    }
+                });
+            });
+    }
+    setInputFilter(document.getElementById("no_hp"), function(value) {
+        return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+    });
+</script>
+@endpush

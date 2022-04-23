@@ -44,13 +44,24 @@
                         <div class="row">
                             <div class="col-lg-5 p-2">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" id="checkin" aria-describedby="checkin">
+                                    <label for="checkin">Check IN</label>
+                                    <input type="date"
+                                    class="form-control"
+                                    placeholder="Check IN"
+                                    id="checkin"
+                                    value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}"
+                                    aria-describedby="checkin">
                                 </div>
                             </div>
 
                             <div class="col-lg-5 p-2">
                                 <div class="form-group">
-                                    <input type="date" class="form-control" id="checkout" aria-describedby="checkout">
+                                    <label for="checkin">Check OUT</label>
+                                    <input type="date"
+                                    class="form-control"
+                                    placeholder="Check OUT"
+                                    value="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d')}}"
+                                    id="checkout" aria-describedby="checkout">
                                 </div>
                             </div>
 
@@ -62,7 +73,7 @@
                             </div>
 
                             <div class="col-lg-5 p-2 text-center">
-                                <button class="btn btn-outline-primary tmbl-book">Book now</button>
+                                <button class="btn btn-primary tmbl-book">Book now</button>
                             </div>
                         </div>
                     </div>
@@ -95,7 +106,7 @@
         </div>
     </div>
     {{-- end about --}}
-    
+
 
     {{-- Rooms --}}
     <div class="container">

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nama_pemesan');
             $table->string('nama_tamu');
             $table->string('email');
-            $table->string('no_hp');
+            $table->string('no_hp')->nullable();
             $table->integer('jumlah_kamar_dipesan');
             $table->foreignId('kamar_id');
             $table->date('tanggal_checkin');

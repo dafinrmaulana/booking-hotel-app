@@ -12,19 +12,26 @@ use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\TamuPageController;
 use App\Http\Controllers\AboutController;
 
+// ->middleware('verified')
+
+// ----------------------------------Auth Guest/Admin----------------------------------
 Route::get('/admin', [AuthController::class, 'view'])->name('auth.index');
 Route::post('/admin/login', [AuthController::class, 'login'])->name('auth.login');
-
-// ----------------------------------Tamu----------------------------------
-Route::get('/', [TamuPageController::class, 'home'])->name('guest.home');
-Route::get('/home', [TamuPageController::class, 'home'])->name('guest.home');
-Route::get('/rooms', [TamuPageController::class, 'rooms'])->name('guest.rooms');
-Route::get('/home/detail-rooms/{id}', [TamuPageController::class, 'detail_rooms'])->name('detail-kamar.tamu')->middleware('verified');
-Route::get('/home/detail-fasilitas-hotel/{id}', [TamuPageController::class, 'detail_fasilitas_hotel'])->name('detail-fasilitas-hotel.tamu');
-Route::get('/home/contact-us', [TamuPageController::class, 'kirimEmail'])->name('contact.kirim');
 Route::post('/home/register-guest', [TamuPageController::class, 'register_guest'])->name('register.guest');
 Route::post('/home/login-guest', [AuthController::class, 'login_guest'])->name('login.guest');
 Route::get('/home/logout-guest', [AuthController::class, 'logout_guest'])->name('logout.guest');
+// ----------------------------------End Auth Guest/Admin----------------------------------
+
+// ----------------------------------Guest Page----------------------------------
+Route::get('/', [TamuPageController::class, 'home'])->name('guest.home');
+Route::get('/home', [TamuPageController::class, 'home'])->name('guest.home');
+Route::get('/rooms', [TamuPageController::class, 'rooms'])->name('guest.rooms');
+Route::get('/home/detail-rooms/{id}', [TamuPageController::class, 'detail_rooms'])->name('detail-kamar.tamu')->middleware('auth');
+Route::get('/home/detail-fasilitas-hotel/{id}', [TamuPageController::class, 'detail_fasilitas_hotel'])->name('detail-fasilitas-hotel.tamu');
+Route::get('/home/contact-us', [TamuPageController::class, 'kirimEmail'])->name('contact.kirim');
+Route::post('/home/detail-rooms/{id}', [TamuPageController::class, 'makeRoomOrder'])->name('guest.roomOrder');
+Route::get('/home/make-order/{id}', [TamuPageController::class, 'makeRoomOrderDetail'])->name('guest.paymentDetail');
+// ----------------------------------End Guest Page----------------------------------
 
 // ----------------------------------guest verify email----------------------------------
 Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->middleware('auth')->name('verification.notice');
@@ -36,8 +43,7 @@ Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordView
 Route::post('/reset-password', [AuthController::class, 'updatePassword'])->middleware('guest')->name('password.update');
 // ----------------------------------end verify email----------------------------------
 
-
-// ----------------------------------Admin Role----------------------------------
+// ----------------------------------Page Admin/Receptionist Role----------------------------------
 Route::group(['middleware' => ['auth:admin','RoleCheck:admin,resepsionis']], function() {
     Route::get('/admin/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::resource('/admin/dashboard', DashboardController::class);
@@ -47,10 +53,11 @@ Route::group(['middleware' => ['auth:admin','RoleCheck:admin,resepsionis']], fun
     Route::patch('/admin/manage-pemesanan/update-status/{id}', [PemesananController::class, 'status']);
     Route::get('/admin/manage-pemesanan/cetak/{id}', [PemesananController::class, 'cetak'])->name('manage-pemesanan.cetak');
     Route::get('/kirim-email/{id}', [PemesananController::class, 'kirimEmail'])->name('email.kirim');
-
 });
+// ----------------------------------End Page Admin/Receptionist Role----------------------------------
 
-Route::group(['middleware' => ['auth','RoleCheck:admin']], function() {
+// ----------------------------------Page Admin Role----------------------------------
+Route::group(['middleware' => ['auth:admin','RoleCheck:admin']], function() {
     // manage admin
     Route::resource('/admin/manage-admin', AdminController::class);
     Route::get('search/admin', [AdminController::class, 'search'])->name('search.admin');
@@ -74,4 +81,4 @@ Route::group(['middleware' => ['auth','RoleCheck:admin']], function() {
     // manage about
     Route::resource('/admin/manage-about', AboutController::class);
 });
-// ----------------------------------end Admin Role----------------------------------
+// ----------------------------------end Page Admin Role----------------------------------
