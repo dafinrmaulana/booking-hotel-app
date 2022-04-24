@@ -15,18 +15,16 @@ return new class extends Migration
     {
         Schema::create('payment_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('pemesanan_id');
-            $table->string('status_code');
-            $table->string('status_message');
+            $table->string('status');
+            $table->string('nama_pemesan');
+            $table->string('email');
             $table->string('transaction_id');
             $table->string('order_id');
             $table->string('gross_amount');
             $table->string('payment_type');
             $table->string('transaction_time');
-            $table->string('transaction_status');
-            $table->string('payment_code');
+            $table->string('payment_code')->nullable();
             $table->string('pdf_url')->nullable();
-            $table->string('finish_redirect_url')->nullable();
             $table->timestamps();
         });
     }

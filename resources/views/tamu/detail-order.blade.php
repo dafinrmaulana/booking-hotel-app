@@ -285,41 +285,10 @@ Order Detail
 <form action="{{ route('makePayment', $pemesanan->id) }}" method="POST" id="form_transaksi">
     @csrf
     <input type="hidden" name="json" id="val_transaksi">
+    <input type="hidden" name="nama_pemesan" value="{{ $pemesanan->nama_pemesan }}" id="val_transaksi">
+    <input type="hidden" name="email" value="{{ $pemesanan->email }}" id="val_transaksi">
 </form>
 @endsection
 
 @push('guest-page-script')
-<script>
-     // For example trigger on button clicked, or any time you need
-     var payButton = document.getElementById('pay-button');
-      payButton.addEventListener('click', function () {
-        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-        window.snap.pay('{{ $snapToken }}', {
-          onSuccess: function(result){
-            /* You may add your own implementation here */
-            alert("payment success!"); console.log(result);
-            transaction(result);
-          },
-          onPending: function(result){
-            /* You may add your own implementation here */
-            alert("wating your payment!"); console.log(result);
-            transaction(result);
-          },
-          onError: function(result){
-            /* You may add your own implementation here */
-            alert("payment failed!"); console.log(result);
-            transaction(result);
-          },
-          onClose: function(){
-            /* You may add your own implementation here */
-            alert('you closed the popup without finishing the payment');
-          }
-        })
-      });
-
-      function transaction(result) {
-          $('#val_transaksi').val(JSON.stringify(result));
-          $('#form_transaksi').submit();
-      }
-</script>
 @endpush

@@ -167,50 +167,18 @@ class TamuPageController extends Controller
 
     public function makeRoomOrderDetail($id)
     {
-        // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = 'SB-Mid-server-PZRwhhiC4fRYa1AJGU86kEs-';
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
         $pemesanan = pemesanan::with('kamar')->find($id);
         $lamanya = $this->lamanya($pemesanan->tanggal_checkin, $pemesanan->tanggal_checkout);
-        $params =
-            array
-            (
-                'transaction_details' => array(
-                'order_id' => 'IKH'.rand(),
-                'gross_amount' => $pemesanan->jumlah_kamar_dipesan*$pemesanan->kamar->harga*$lamanya,
-            ),
-            'customer_details' => array(
-                'first_name' => $pemesanan->nama_pemesan,
-                'last_name' => '',
-                'email' => $pemesanan->email,
-                'phone' => $pemesanan->no_hp,
-            ),
-            'item_details' => array(
-                [
-                    "id"=> "R".$pemesanan->kamar->id.$pemesanan->id,
-                    "price"=>$pemesanan->kamar->harga, 2, ',', '.',
-                    "quantity"=> $pemesanan->jumlah_kamar_dipesan,
-                    "name"=> $pemesanan->kamar->nama_kamar
-                ]
-            ),
-        );
-        $snapToken = \Midtrans\Snap::getSnapToken($params);
         $kamar = kamar::with('fasilitas')->where('id', $id)->first();
         $faska = fasilitasKamar::all();
 
-        return view('tamu.detail-order', compact('pemesanan', 'kamar', 'faska', 'snapToken'));
+        return view('tamu.detail-order', compact('pemesanan', 'kamar', 'faska'));
     }
     // ----------------------------------End Make Room Order Detal----------------------------------
 
     // ----------------------------------Make payment----------------------------------
-    public function makePayment(Request $request) {
-        $paymentdata = json_decode($request->get('json'));
-        return $paymentdata;
+    public function makePayment(Request $request, $id) {
+
     }
 
 }
