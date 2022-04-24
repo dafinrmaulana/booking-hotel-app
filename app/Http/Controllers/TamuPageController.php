@@ -177,8 +177,5 @@ class TamuPageController extends Controller
     // ----------------------------------End Make Room Order Detal----------------------------------
 
     // ----------------------------------Make payment----------------------------------
-    public function makePayment(Request $request, $id) {
-
-    }
 
 }

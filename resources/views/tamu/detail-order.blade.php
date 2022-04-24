@@ -166,20 +166,32 @@ Order Detail
 
                             <div class="row pt-1">
                                 <div class="col-6">
-                                Total Price
-                                <p style="font-size: 13px">( {{ $pemesanan->jumlah_kamar_dipesan }} Room x {{ $diff->format("%a Night") }} )</p>
+                                    Total Price
+                                    <p style="font-size: 13px">( {{ $pemesanan->jumlah_kamar_dipesan }} Room x {{ $diff->format("%a Night") }} )</p>
                                 </div>
                                 <div class="col-6 text-right">
-                                <strong class="text-capitalize" style="font-size: 15px">
-                                Rp. {{ number_format($pemesanan->kamar->harga*$pemesanan->jumlah_kamar_dipesan*$diff->format("%a"), 2, ',', '.') }}
-                                </strong>
+                                    <strong class="text-capitalize" style="font-size: 15px">
+                                    Rp. {{ number_format($pemesanan->kamar->harga*$pemesanan->jumlah_kamar_dipesan*$diff->format("%a"), 2, ',', '.') }}
+                                    </strong>
                                 </div>
                             </div>
 
-                            <div class="row pt-1 border-top justify-content-center">
-                            <button class="btn btn-dark rounded-0 mt-1" id="pay-button">
-                                <i class="fas fa-dollar-sign text-light"></i>
+                            <div class="row mb-3">
+                                <select class="custom-select" id="method-select" aria-label="Example select with button addon">
+                                    <option value="0" selected>Payment Method...</option>
+                                    <option value="1">Online Payment Method (Available soon) </option>
+                                    <option value="2">Pay On Receptionist</option>
+                                </select>
+                            </div>
+
+                            <div class="row pt-1 border-top justify-content-center text-center">
+                            <button class="btn btn-dark rounded-0 mt-1" id="pay-now" disabled>
+                                <i class="fas fa-credit-card"></i>
                                 Pay Now
+                            </button>
+                            <button class="btn btn-dark rounded-0 mt-1" id="pay-later">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                Pay on receptionist
                             </button>
                             </div>
                         </div>
@@ -252,17 +264,37 @@ Order Detail
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-4 border-right">
-                                <h5>Check-in Instruction</h5>
+                                <h5>Check-in Instruction
+                                <br>
+                                ( Online Payment Method ) </h5>
                             </div>
                             <div class="col-lg-8">
                                 <p>
-                                    After the user successfully makes a payment, the user will be
-                                    issued an e-ticket as proof of payment. so that when the user
-                                    checks in, the user only has to submit their personal data to the
+                                    After the Customer successfully makes a payment, the Guest will be
+                                    issued an <strong class="text-capitalize" style="text-decoration: underline">booking id card</strong> as proof of payment. so that when the Guest
+                                    checks in, the Guest only has to submit their personal data to the
                                     receptionist in the form of an ID card/steering license, for example
                                 </p>
                             </div>
                         </div>
+
+                        <div class="row pt-4">
+                            <div class="col-lg-4 border-right">
+                                <h5>Check-in Instruction
+                                <br>
+                                ( Pay on receptionist method ) </h5>
+                            </div>
+                            <div class="col-lg-8">
+                                <p>
+                                    after the room reservation is successfully made, the user will be
+                                    given a <strong class="text-capitalize" style="text-decoration: underline">booking id card</strong> which serves as proof of the reservation, so
+                                    the user only needs to show it to the receptionist and then pay the bill.
+                                    <strong>the <strong class="text-capitalize" style="text-decoration: underline">booking id card</strong> is only valid for 7 days after ordering</strong>, after that day the
+                                    booking is considered <strong class="text-danger">cancelled</strong>.
+                                </p>
+                            </div>
+                        </div>
+
                         <div class="row pt-4">
                             <div class="col-lg-4 border-right">
                                 <h5>Cancelation Policy</h5>
@@ -281,14 +313,21 @@ Order Detail
         </div>
     </div>
 </div>
-
-<form action="{{ route('makePayment', $pemesanan->id) }}" method="POST" id="form_transaksi">
-    @csrf
-    <input type="hidden" name="json" id="val_transaksi">
-    <input type="hidden" name="nama_pemesan" value="{{ $pemesanan->nama_pemesan }}" id="val_transaksi">
-    <input type="hidden" name="email" value="{{ $pemesanan->email }}" id="val_transaksi">
-</form>
 @endsection
 
 @push('guest-page-script')
+<script>
+    $('#pay-now').show();
+    $('#pay-later').hide();
+    $('#method-select').on('change', function() {
+        $value = this.value;
+        if ($value == '0' || $value == '1') {
+            $('#pay-now').show();
+            $('#pay-later').hide();
+        } else {
+            $('#pay-later').show();
+        $('#pay-now').hide();
+        }
+    });
+</script>
 @endpush
