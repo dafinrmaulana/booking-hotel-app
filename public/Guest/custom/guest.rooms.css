@@ -38,6 +38,9 @@
     .card-room-facilites {
         margin-top: -150px;
     }
+    .card-privacy-policies {
+        margin-top: -100px;
+    }
 }
 
 /* mobile */
@@ -52,6 +55,9 @@
 }
 
 /* utilities */
+.container-detail-order {
+    background: rgb(237, 238, 240);
+}
 .main-footer {
     text-decoration: none;
     color:rgb(99, 97, 97);

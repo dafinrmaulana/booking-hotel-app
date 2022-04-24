@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('tanggal_checkin');
             $table->date('tanggal_checkout');
             $table->dateTime('tanggal_dipesan');
-            $table->enum('status_pemesan', ['unpaid', 'checkin', 'checkout', 'cancel']);
+            $table->enum('status_pemesan', ['pending', 'checkin', 'checkout', 'cancel']);
             $table->timestamps();
         });
     }

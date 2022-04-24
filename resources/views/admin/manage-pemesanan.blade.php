@@ -41,8 +41,8 @@
                                 @if ($data->status_pemesan == 'cancel')
                                     <td><span class="badge badge-warning">{{ $data->status_pemesan }}</span></td>
                                 @endif
-                                @if ($data->status_pemesan == 'unpaid')
-                                    <td><span class="badge badge-secondary">{{ $data->status_pemesan }}</span></td>
+                                @if ($data->status_pemesan == 'pending')
+                                    <td><span class="badge badge-secondary py-1 rounded-2">{{ $data->status_pemesan }}</span></td>
                                 @endif
                                 <td>{{ date('Y-m-d', strtotime($data->tanggal_dipesan)) }}</td>
                                 <td class="text-center">

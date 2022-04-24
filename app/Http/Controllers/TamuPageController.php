@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\pemesanan;
 use Illuminate\Support\Carbon;
 
+
 class TamuPageController extends Controller
 {
     // ----------------------------------Home page----------------------------------
@@ -105,7 +106,7 @@ class TamuPageController extends Controller
     // ----------------------------------End Sign IN----------------------------------
 
 
-    // make room order
+    // ----------------------------------Make Room Order Detail----------------------------------
     public function makeRoomOrder(Request $request, $id, pemesanan $pemesanan) {
         $kamar = kamar::select('id', 'jumlah', 'nama_kamar')->where('id', $id)->first();
         $jumlah = $kamar->jumlah;
@@ -145,7 +146,7 @@ class TamuPageController extends Controller
             ]);
         }
 
-        $pemesanan->status_pemesan = 'unpaid';
+        $pemesanan->status_pemesan = 'pending';
         $pemesanan->no_hp = ($request->no_hp);
         $pemesanan->kamar_id = $kamar_id;
         $pemesanan->save();
@@ -158,7 +159,11 @@ class TamuPageController extends Controller
 
     public function makeRoomOrderDetail($id)
     {
+
         $pemesanan = pemesanan::with('kamar')->find($id);
-        return view('tamu.detail-order', ['pemesanan' => $pemesanan]);
+        $kamar = kamar::with('fasilitas')->where('id', $id)->first();
+        $faska = fasilitasKamar::all();
+        return view('tamu.detail-order', compact('pemesanan', 'kamar', 'faska'));
     }
+    // ----------------------------------End Make Room Order Detal----------------------------------
 }

@@ -14,6 +14,8 @@ use App\Http\Controllers\AboutController;
 
 // ->middleware('verified')
 
+Route::get('/payment', [TamuPageController::class, 'payment']);
+
 // ----------------------------------Auth Guest/Admin----------------------------------
 Route::get('/admin', [AuthController::class, 'view'])->name('auth.index');
 Route::post('/admin/login', [AuthController::class, 'login'])->name('auth.login');
