@@ -7,7 +7,7 @@ Order Detail
 @endsection
 
 @section('header')
-<div class="container">
+<div class="container-fluid pt-2 container-detail-order">
     <div class="row">
         <div class="col-lg-12 text-center">
             <div class="breadcrumb-text">
@@ -26,159 +26,254 @@ Order Detail
 @endsection
 
 @section('main')
-<div class="container">
+<div class="container-fluid p-5 container-detail-order">
     <div class="row mb-4 mt-4">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
+            <div class="card border-0 shadow-sm">
 
-            <div class="card rounded-0">
+                <!-- card detail guest  -->
+                <div class="container">
+                    <div class="row p-3">
+                        <div class="col-lg-5">
+                            @if ($pemesanan->kamar->foto)
+                            <img src="{{ asset('img/kamar/'. $pemesanan->kamar->foto) }}" alt="" class="img-fluid border rounded">
+                            @endif
+                            @if ($pemesanan->kamar->foto === null)
+                            <img style="cursor: pointer" data-fancybox data-src
+                            class="border rounded"
+                            src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png" alt="foto kamar"
+                            width="100%">
+                            @endif
+                        </div>
 
-                <div class="card-header bg-dark rounded-0">
-                    <h5 class="text-light">Booking Details</h5>
+                        <div class="col-lg-7">
+                            <h5 class="border-bottom p-3"> <i class="fas fa-hotel"></i> {{ $pemesanan->kamar->nama_kamar }}</h5>
+                            <div class="row">
+                                <div class="col">
+                                    <h6 class="text-secondary">Check-in</h6>
+                                    <h6 class="display-6">{{ date('d M Y', strtotime($pemesanan->tanggal_checkin)) }}</h6>
+                                </div>
+                                <div class="col">
+                                    <h6 class="text-secondary">Check-out</h6>
+                                    <h6 class="display-6">{{ date('d M Y', strtotime($pemesanan->tanggal_checkout)) }}</h6>
+                                </div>
+                                <div class="col">
+                                    <h6 class="text-secondary">Duration</h6>
+                                    <h6 class="display-6">
+                                        <?php
+                                        $date1=date_create($pemesanan->tanggal_checkin);
+                                        $date2=date_create($pemesanan->tanggal_checkout);
+                                        $diff=date_diff($date1,$date2);
+                                        echo $diff->format("%a Night");
+                                        ?>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="card-body">
-                    <div class="row border-bottom">
-                        <div class="col-lg-5 col-5">
-                        <p>Guest Name</p>
+                <!-- booking details -->
+                <div class="container">
+                    <div class="row p-3">
+                        <div class="col-lg-8 border-top pt-3">
+                            <h5>
+                            <strong>Booking Detail</strong>
+                            </h5>
+
+                            <div class="row">
+                                <div class="col-lg-5 col-6">
+                                <p class="text-secondary">Guest Name</p>
+                                </div>
+                                <div class="col-lg-6 col-6">
+                                <strong>{{ $pemesanan->nama_tamu }}</strong>
+                                </div>
+                            </div>
+
+                            <div class="row mt-n3">
+                                <div class="col-lg-5 col-6">
+                                <p class="text-secondary">Total Ordered Rooms</p>
+                                </div>
+                                <div class="col-lg-6 col-6">
+                                <strong>{{ $pemesanan->jumlah_kamar_dipesan }}</strong>
+                                </div>
+                            </div>
+
+                            <div class="row mt-n3">
+                                <div class="col-lg-5 col-6">
+                                <p class="text-secondary">Room Price</p>
+                                </div>
+                                <div class="col-lg-6 col-6">
+                                <strong>Rp. {{ number_format($pemesanan->kamar->harga, 2, ',', '.') }}</strong>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-1 col-1">:</div>
-                        <div class="col-lg-6 col-6">
-                        <p class="text-capitalize">{{ $pemesanan->nama_tamu }}</p>
-                        </div>
-                    </div>
-                    <div class="row border-bottom pt-3">
-                        <div class="col-lg-5 col-5">
-                        <p>Room Name</p>
-                        </div>
-                        <div class="col-lg-1 col-1">:</div>
-                        <div class="col-lg-6 col-6">
-                        <p class="text-capitalize">{{ $pemesanan->kamar->nama_kamar }}</p>
-                        </div>
-                    </div>
-                    <div class="row border-bottom pt-3">
-                        <div class="col-lg-5 col-5">
-                        <p>Room Price</p>
-                        </div>
-                        <div class="col-lg-1 col-1">:</div>
-                        <div class="col-lg-6 col-6">
-                            <p>Rp. {{ number_format($pemesanan->kamar->harga, 2, ',', '.') }}</p>
-                        </div>
-                    </div>
-                    <div class="row border-bottom pt-3">
-                        <div class="col-lg-5 col-5">
-                        <p>Total Room</p>
-                        </div>
-                        <div class="col-lg-1 col-1">:</div>
-                        <div class="col-lg-6 col-6">
-                            <p>{{ $pemesanan->jumlah_kamar_dipesan }}</p>
-                        </div>
-                    </div>
-                    <div class="row border-bottom pt-3">
-                        <div class="col-lg-5 col-5">
-                        <p>Check IN</p>
-                        </div>
-                        <div class="col-lg-1 col-1">:</div>
-                        <div class="col-lg-6 col-6">
-                            <p>{{ date('l, d-M-Y', strtotime($pemesanan->tanggal_checkin)) }}</p>
-                        </div>
-                    </div>
-                    <div class="row pt-3">
-                        <div class="col-lg-5 col-5">
-                        <p>Check OUT</p>
-                        </div>
-                        <div class="col-lg-1 col-1">:</div>
-                        <div class="col-lg-6 col-6">
-                            <p>{{ date('l, d-M-Y', strtotime($pemesanan->tanggal_checkout)) }}</p>
+
+                        <div class="col-lg-4 mt-lg-0 pt-3 border-top">
+                            <h5 class="mb-4">
+                            <strong>Room Facilities</strong>
+                            </h5>
+                            @forelse ($kamar->fasilitas as $fasi)
+                            @php
+                            $fasil = $faska->where('id', $fasi->id)->first();
+                            @endphp
+                            <p class="mt-n3"> <i class="fas fa-check text-success "></i> {{ $fasil->nama_fasilitas}}</p>
+                            @empty
+                            <p class="mt-n3" style="font-size: 14px"><i class="fas fa-times-circle text-danger "></i> This room has no facilities</p>
+                            @endforelse
                         </div>
                     </div>
                 </div>
 
             </div>
-
         </div>
-        <div class="col-lg-4 mt-lg-0 mt-3">
-            <div class="card rounded-0">
-                <div class="card-header bg-dark rounded-0">
-                    <h5 class="text-light">Payment Detail</h5>
-                </div>
-                <div class="card-body">
-                    <div class="container">
 
-                        {{-- order by --}}
-                        <div class="row">
-                            <div class="col-lg-6 col-6">
-                            <strong>Order By</strong>
+        <!-- payments detail -->
+        <div class="col-lg-5 mt-lg-0 mt-3">
+            <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mb-3">
+                    <div class="card rounded border-0 shadow-sm">
+                        <div class="card-header bg-transparent">
+                        <h5>Payments Detail</h5>
+                        </div>
+                        <div class="card-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                Order By
+                                </div>
+                                <div class="col-8 text-right">
+                                <strong class="text-capitalize" style="font-size: 15px">{{ $pemesanan->nama_pemesan }}</strong>
+                                </div>
                             </div>
-                            <div class="col-lg-6 col-6 text-right text-capitalize">
-                            {{ $pemesanan->nama_pemesan }}
+
+                            <div class="row pt-1">
+                                <div class="col-4">
+                                    Duration
+                                </div>
+                                <div class="col-8 text-right">
+                                    <strong>
+                                        <?php
+                                        $date1=date_create($pemesanan->tanggal_checkin);
+                                        $date2=date_create($pemesanan->tanggal_checkout);
+                                        $diff=date_diff($date1,$date2);
+                                        echo $diff->format("%a Night");
+                                        ?>
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-6">
+                                Total Price
+                                <p style="font-size: 13px">( {{ $pemesanan->jumlah_kamar_dipesan }} Room x {{ $diff->format("%a Night") }} )</p>
+                                </div>
+                                <div class="col-6 text-right">
+                                <strong class="text-capitalize" style="font-size: 15px">
+                                Rp. {{ number_format($pemesanan->kamar->harga*$pemesanan->jumlah_kamar_dipesan*$diff->format("%a"), 2, ',', '.') }}
+                                </strong>
+                                </div>
+                            </div>
+
+                            <div class="row pt-1 border-top justify-content-center">
+                            <button class="btn btn-dark rounded-0 mt-1" id="pay-button">
+                                <i class="fas fa-dollar-sign text-light"></i>
+                                Pay Now
+                            </button>
                             </div>
                         </div>
-                        {{-- Total Room --}}
-                        <div class="row">
-                            <div class="col-lg-6 col-6">
-                            <strong>Total Room</strong>
-                            </div>
-                            <div class="col-lg-6 col-6 text-right">
-                            {{ $pemesanan->jumlah_kamar_dipesan }} Room
-                            </div>
-                        </div>
-
-                        {{-- Duration --}}
-                        <div class="row">
-                            <div class="col-lg-6 col-6">
-                                <strong>Duration</strong>
-                            </div>
-                            <div class="col-lg-6 col-6 text-right">
-                                <?php
-                                $date1=date_create($pemesanan->tanggal_checkin);
-                                $date2=date_create($pemesanan->tanggal_checkout);
-                                $diff=date_diff($date1,$date2);
-                                echo $diff->format("%a Night");
-                                ?>
-                            </div>
-                        </div>
-
-                        {{-- Total price --}}
-                        <div class="row">
-                            <div class="col-lg-6 col-6">
-                            <strong>Total Price</strong>
-                            <div class="total-price">( {{ $pemesanan->jumlah_kamar_dipesan }} Room x {{ $diff->format("%a") }} Night )</div>
-                            </div>
-                            <div class="col-lg-6 col-6 text-right">
-                            <strong>Rp. {{  number_format($pemesanan->kamar->harga*$pemesanan->jumlah_kamar_dipesan*$diff->format("%a"), 2, ',', '.') }}</strong>
-                            </div>
-                        </div>
-
-                        {{-- payment Button --}}
-                        <div class="row border-top mt-3 justify-content-center">
-                            <div class="col-12 text-center mt-2">
-                                <a href="" class="btn btn-dark rounded-0"> <i class="fas fa-dollar-sign text-light"></i> Pay Now</a>
-                            </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="col-lg-12">
+                    <div class="card rounded border-0 shadow-sm">
+                        <div class="card-header bg-transparent">
+                        <h5>Contacts Detail</h5>
+                        </div>
+                        <div class="card-body mb-n4 mt-2">
+                            <div class="container">
+                                <div class="row mt-n2">
+                                    <div class="col-4">
+                                    <p>Full Name</p>
+                                    </div>
+                                    <div class="col-8 text-right">
+                                    <p class="text-capitalize font-weight-bold">{{ $pemesanan->nama_pemesan }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container">
+                                <div class="row mt-n2">
+                                    <div class="col-4">
+                                    <p>Email</p>
+                                    </div>
+                                    <div class="col-8 text-right">
+                                    <p class="font-weight-bold">{{ $pemesanan->email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container">
+                                <div class="row mt-n2">
+                                    <div class="col-4">
+                                    <p>Phone</p>
+                                    </div>
+                                    <div class="col-8 text-right">
+                                        @if ($pemesanan->phone)
+                                        <p class="text-capitalize font-weight-bold">{{ $pemesanan->no_hp }}</p>
+                                        @else
+                                        <p class="text-capitalize font-weight-bold"> - </p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             </div>
         </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-lg-8">
-            <div class="card rounded-0">
+    <!-- privacy policies -->
+    <div class="row mb-4 card-privacy-policies">
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
                 <div class="card-header bg-dark rounded-0">
-                    <h5 class="text-light">Privacy Policies</h5>
+                    <h5 class="font-weight text-light rounded-0 border-0">
+                        Privacy Policies
+                    </h5>
                 </div>
-                <div class="card-body mt-lg-n3">
-                    <div class="row">
-                        <div class="col-lg-3 col-3">
-                        <p>Check IN Instruction</p>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 border-right">
+                                <h5>Check-in Instruction</h5>
+                            </div>
+                            <div class="col-lg-8">
+                                <p>
+                                    After the user successfully makes a payment, the user will be
+                                    issued an e-ticket as proof of payment. so that when the user
+                                    checks in, the user only has to submit their personal data to the
+                                    receptionist in the form of an ID card/steering license, for example
+                                </p>
+                            </div>
                         </div>
-                        <div class="col-lg-9 col-9 border-left">
-                        <p>
-                        When the customer has successfully made an order,
-                        we will make an e-ticket so that when the guest checks
-                        in, the guest only needs to show their personal data in
-                        the form of an ID card / driving license to the receptionist
-                        and enjoy the accommodation </p>
+                        <div class="row pt-4">
+                            <div class="col-lg-4 border-right">
+                                <h5>Cancelation Policy</h5>
+                            </div>
+                            <div class="col-lg-8">
+                                <p>
+                                    This booking is non-refundable. The time displayed is according
+                                    to the accommodation local time, the date of stay and the room
+                                    type cannot be changed
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -186,4 +281,45 @@ Order Detail
         </div>
     </div>
 </div>
+
+<form action="{{ route('makePayment', $pemesanan->id) }}" method="POST" id="form_transaksi">
+    @csrf
+    <input type="hidden" name="json" id="val_transaksi">
+</form>
 @endsection
+
+@push('guest-page-script')
+<script>
+     // For example trigger on button clicked, or any time you need
+     var payButton = document.getElementById('pay-button');
+      payButton.addEventListener('click', function () {
+        // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+        window.snap.pay('{{ $snapToken }}', {
+          onSuccess: function(result){
+            /* You may add your own implementation here */
+            alert("payment success!"); console.log(result);
+            transaction(result);
+          },
+          onPending: function(result){
+            /* You may add your own implementation here */
+            alert("wating your payment!"); console.log(result);
+            transaction(result);
+          },
+          onError: function(result){
+            /* You may add your own implementation here */
+            alert("payment failed!"); console.log(result);
+            transaction(result);
+          },
+          onClose: function(){
+            /* You may add your own implementation here */
+            alert('you closed the popup without finishing the payment');
+          }
+        })
+      });
+
+      function transaction(result) {
+          $('#val_transaksi').val(JSON.stringify(result));
+          $('#form_transaksi').submit();
+      }
+</script>
+@endpush

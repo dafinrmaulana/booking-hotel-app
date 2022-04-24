@@ -25,7 +25,7 @@ class pemesananFactory extends Factory
             'nama_tamu'=>$this->faker->name(),
             'no_hp'=>$this->faker->phoneNumber(),
             'email'=>$this->faker->unique()->email(),
-            'status_pemesan'=>'unpaid',
+            'status_pemesan'=>'pending',
             'jumlah_kamar_dipesan'=>rand(1, 10),
             'tanggal_dipesan'=>$create,
             'created_at'=>$create,

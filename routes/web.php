@@ -14,6 +14,8 @@ use App\Http\Controllers\AboutController;
 
 // ->middleware('verified')
 
+Route::get('/payment', [TamuPageController::class, 'payment']);
+
 // ----------------------------------Auth Guest/Admin----------------------------------
 Route::get('/admin', [AuthController::class, 'view'])->name('auth.index');
 Route::post('/admin/login', [AuthController::class, 'login'])->name('auth.login');
@@ -32,6 +34,10 @@ Route::get('/home/contact-us', [TamuPageController::class, 'kirimEmail'])->name(
 Route::post('/home/detail-rooms/{id}', [TamuPageController::class, 'makeRoomOrder'])->name('guest.roomOrder');
 Route::get('/home/make-order/{id}', [TamuPageController::class, 'makeRoomOrderDetail'])->name('guest.paymentDetail');
 // ----------------------------------End Guest Page----------------------------------
+
+// ----------------------------------Guest Payment----------------------------------
+Route::post('/home/make-order/payment/{id}', [TamuPageController::class, 'makePayment'])->name('makePayment');
+// ----------------------------------end Guest Payment----------------------------------
 
 // ----------------------------------guest verify email----------------------------------
 Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->middleware('auth')->name('verification.notice');

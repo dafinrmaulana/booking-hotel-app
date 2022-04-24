@@ -29,8 +29,10 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
+@if ($data_chart)
 var labels = <?= json_encode($data_chart['label']) ?>;
 var data = <?= json_encode($data_chart['data']) ?>;
+@endif
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',

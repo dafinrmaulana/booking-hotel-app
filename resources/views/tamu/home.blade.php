@@ -144,9 +144,8 @@
 
                             <strong class="price">Rp. {{ number_format($kamar->harga, 2, '.', '.') }}
                                 /Night</strong> <br>
-                            <a href="#" class="btn btn-primary rounded-pill btn-pesan mt-2">Book Now</a>
                             <a href="{{ route('detail-kamar.tamu', $kamar->id) }}"
-                                class="btn btn-outline-success rounded-pill btn-pesan mt-2">Details</a>
+                            class="btn btn-primary btn-pesan mt-2">Book Now</a>
                         </div>
                     </div>
                 </div>

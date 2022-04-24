@@ -14,11 +14,14 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use App\Models\pemesanan;
 use Illuminate\Support\Carbon;
+use App\Models\paymentTransaction;
+
 
 class TamuPageController extends Controller
 {
     // ----------------------------------Home page----------------------------------
-    public function home() {
+    public function home()
+    {
         $kamar = kamar::paginate(6);
         $fasilitas = fasilitasHotel::paginate(4);
         $about = about::first();
@@ -28,7 +31,8 @@ class TamuPageController extends Controller
 
 
     // ----------------------------------Rooms page----------------------------------
-    public function rooms() {
+    public function rooms()
+    {
         $kamar = kamar::paginate(6);
         return view('tamu.rooms', compact('kamar'));
     }
@@ -36,7 +40,8 @@ class TamuPageController extends Controller
 
 
     // ----------------------------------Rooms Detail----------------------------------
-    public function detail_rooms($id) {
+    public function detail_rooms($id)
+    {
         $kamar = kamar::with('fasilitas')->where('id', $id)->first();
         $about = about::first();
         $faska = fasilitasKamar::all();
@@ -46,7 +51,8 @@ class TamuPageController extends Controller
 
 
     // ----------------------------------Hotel Facilities----------------------------------
-    public function detail_fasilitas_hotel($id) {
+    public function detail_fasilitas_hotel($id)
+    {
         $fasilitas = fasilitasHotel::findorfail($id);
         return view('tamu.detail-fasilitas-hotel', compact('fasilitas'));
     }
@@ -54,7 +60,8 @@ class TamuPageController extends Controller
 
 
     // ----------------------------------Contact Us----------------------------------
-    public function kirimEmail(Request $request) {
+    public function kirimEmail(Request $request)
+    {
         $request->validate([
             'name'=>'required',
             'email'=>'required',
@@ -82,7 +89,8 @@ class TamuPageController extends Controller
 
 
     // ----------------------------------Sign IN----------------------------------
-    public function register_guest(Request $request) {
+    public function register_guest(Request $request)
+    {
         $request->validate([
             'nama_regist'=>'required|min:3|not_regex:/[0-9!@#$%^&*]/',
             'email_regist'=>'required|email|min:3|unique:tamu,email|email:dns',
@@ -105,8 +113,9 @@ class TamuPageController extends Controller
     // ----------------------------------End Sign IN----------------------------------
 
 
-    // make room order
-    public function makeRoomOrder(Request $request, $id, pemesanan $pemesanan) {
+    // ----------------------------------Make Room Order Detail----------------------------------
+    public function makeRoomOrder(Request $request, $id, pemesanan $pemesanan)
+    {
         $kamar = kamar::select('id', 'jumlah', 'nama_kamar')->where('id', $id)->first();
         $jumlah = $kamar->jumlah;
         $nama = $kamar->nama_kamar;
@@ -145,7 +154,7 @@ class TamuPageController extends Controller
             ]);
         }
 
-        $pemesanan->status_pemesan = 'unpaid';
+        $pemesanan->status_pemesan = 'pending';
         $pemesanan->no_hp = ($request->no_hp);
         $pemesanan->kamar_id = $kamar_id;
         $pemesanan->save();
@@ -158,7 +167,50 @@ class TamuPageController extends Controller
 
     public function makeRoomOrderDetail($id)
     {
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-PZRwhhiC4fRYa1AJGU86kEs-';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
         $pemesanan = pemesanan::with('kamar')->find($id);
-        return view('tamu.detail-order', ['pemesanan' => $pemesanan]);
+        $lamanya = $this->lamanya($pemesanan->tanggal_checkin, $pemesanan->tanggal_checkout);
+        $params =
+            array
+            (
+                'transaction_details' => array(
+                'order_id' => 'IKH'.rand(),
+                'gross_amount' => $pemesanan->jumlah_kamar_dipesan*$pemesanan->kamar->harga*$lamanya,
+            ),
+            'customer_details' => array(
+                'first_name' => $pemesanan->nama_pemesan,
+                'last_name' => '',
+                'email' => $pemesanan->email,
+                'phone' => $pemesanan->no_hp,
+            ),
+            'item_details' => array(
+                [
+                    "id"=> "R".$pemesanan->kamar->id.$pemesanan->id,
+                    "price"=>$pemesanan->kamar->harga, 2, ',', '.',
+                    "quantity"=> $pemesanan->jumlah_kamar_dipesan,
+                    "name"=> $pemesanan->kamar->nama_kamar
+                ]
+            ),
+        );
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
+        $kamar = kamar::with('fasilitas')->where('id', $id)->first();
+        $faska = fasilitasKamar::all();
+
+        return view('tamu.detail-order', compact('pemesanan', 'kamar', 'faska', 'snapToken'));
     }
+    // ----------------------------------End Make Room Order Detal----------------------------------
+
+    // ----------------------------------Make payment----------------------------------
+    public function makePayment(Request $request) {
+        $paymentdata = json_decode($request->get('json'));
+        return $paymentdata;
+    }
+
 }
