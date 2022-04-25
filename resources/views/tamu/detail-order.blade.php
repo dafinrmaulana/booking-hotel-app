@@ -13,9 +13,14 @@ Order Detail
             <div class="breadcrumb-text">
                 <h2>Order Detail</h2>
                 <div class="bt-option">
-                    <a href="{{ route('guest.home') }}">Home</a>
-                    <i class="fas fa-angle-right"></i>
-                    <a href="{{ route('detail-kamar.tamu', $kamar->id) }}">Detail Rooms</a>
+                    <a href="#" id="detail-rooms" data-id="{{ $pemesanan->id }}">
+                        <form action="{{ route('guest.destroy-order', $pemesanan->id) }}"
+                            id="delete-pemesanan{{ $pemesanan->id }}" method="POST">
+                            @csrf
+                            @method('delete')
+                        </form>
+                        Home
+                    </a>
                     <i class="fas fa-angle-right"></i>
                     <span>Order Detail</span>
                 </div>
@@ -47,7 +52,7 @@ Order Detail
                         </div>
 
                         <div class="col-lg-7">
-                            <h5 class="border-bottom p-3"> <i class="fas fa-hotel"></i> {{ $pemesanan->kamar->nama_kamar }}</h5>
+                            <h5 class="border-bottom p-3"> <i class="fas fa-hotel"></i> {{ $pemesanan->kamar->nama_kamar }} Room</h5>
                             <div class="row">
                                 <div class="col">
                                     <h6 class="text-secondary">Check-in</h6>
@@ -75,8 +80,8 @@ Order Detail
 
                 <!-- booking details -->
                 <div class="container">
-                    <div class="row p-3">
-                        <div class="col-lg-8 border-top pt-3">
+                    <div class="row p-3 justify-content-center">
+                        <div class="col-lg-10 border-top pt-3">
                             <h5>
                             <strong>Booking Detail</strong>
                             </h5>
@@ -85,17 +90,17 @@ Order Detail
                                 <div class="col-lg-5 col-6">
                                 <p class="text-secondary">Guest Name</p>
                                 </div>
-                                <div class="col-lg-6 col-6">
+                                <div class="col-lg-6 col-6 text-right text-capitalize">
                                 <strong>{{ $pemesanan->nama_tamu }}</strong>
                                 </div>
                             </div>
 
                             <div class="row mt-n3">
                                 <div class="col-lg-5 col-6">
-                                <p class="text-secondary">Total Ordered Rooms</p>
+                                <p class="text-secondary">Total</p>
                                 </div>
-                                <div class="col-lg-6 col-6">
-                                <strong>{{ $pemesanan->jumlah_kamar_dipesan }}</strong>
+                                <div class="col-lg-6 col-6 text-right">
+                                <strong>{{ $pemesanan->jumlah_kamar_dipesan }} Rooms</strong>
                                 </div>
                             </div>
 
@@ -103,13 +108,13 @@ Order Detail
                                 <div class="col-lg-5 col-6">
                                 <p class="text-secondary">Room Price</p>
                                 </div>
-                                <div class="col-lg-6 col-6">
+                                <div class="col-lg-6 col-6 text-right">
                                 <strong>Rp. {{ number_format($pemesanan->kamar->harga, 2, ',', '.') }}</strong>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-4 mt-lg-0 pt-3 border-top">
+                        {{-- <div class="col-lg-4 mt-lg-0 pt-3 border-top">
                             <h5 class="mb-4">
                             <strong>Room Facilities</strong>
                             </h5>
@@ -121,7 +126,7 @@ Order Detail
                             @empty
                             <p class="mt-n3" style="font-size: 14px"><i class="fas fa-times-circle text-danger "></i> This room has no facilities</p>
                             @endforelse
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -289,6 +294,8 @@ Order Detail
                                     after the room reservation is successfully made, the user will be
                                     given a <strong class="text-capitalize" style="text-decoration: underline">E-booking id card</strong> which serves as proof of the reservation, so
                                     the user only needs to show it to the receptionist and then pay the bill.
+                                    6 days after ordering the room but the guest still doesnt come and/or not complete the payment we will contact the customer
+                                    via email.
                                     <strong>the <strong class="text-capitalize" style="text-decoration: underline">E-booking id card</strong> is only valid for 7 days after ordering</strong>, after that day the
                                     booking is considered <strong class="text-danger">cancelled</strong>.
                                 </p>
@@ -353,7 +360,12 @@ $(document).ready(function() {
         })
     });
     // ---------------------------- payment method popup confirm end ------------------------------
-
+    // delete action
+    $('#detail-rooms').click(function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        $(`#delete-pemesanan${id}`).submit();
+    });
 });
 </script>
 @endpush

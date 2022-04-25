@@ -16,6 +16,7 @@ use App\Models\pemesanan;
 use Illuminate\Support\Carbon;
 use App\Models\paymentTransaction;
 use App\Mail\Invoice;
+use Illuminate\Support\Facades\DB;
 
 
 class TamuPageController extends Controller
@@ -176,7 +177,7 @@ class TamuPageController extends Controller
 
 
         if ($pemesanan) {
-            return redirect()->route('guest.paymentDetail', [$pemesanan]);
+            return redirect()->route('guest.paymentDetail', ['pemesanan'=>$pemesanan->id, 'kamar'=>$kamar_id]);
         }
     }
 
@@ -190,6 +191,14 @@ class TamuPageController extends Controller
         return view('tamu.detail-order', compact('pemesanan', 'kamar', 'faska'));
     }
     // ----------------------------------End Make Room Order Detal----------------------------------
+
+    // ----------------------------------Destroy order----------------------------------
+    public function destroyOrder($id)
+    {
+        DB::table('pemesanan')->delete($id);
+        return redirect('/');
+    }
+    // ----------------------------------Destroy order END----------------------------------
 
     // ----------------------------------Make e booking card----------------------------------
     public function makeEcard($id)
@@ -208,5 +217,13 @@ class TamuPageController extends Controller
         return back()->with('email', 'email');
     }
     // ----------------------------------Make e booking card end----------------------------------
+
+    // ----------------------------------About page----------------------------------
+    public function about()
+    {
+        $about = about::first();
+        return view('tamu.about', compact('about'));
+    }
+    // ----------------------------------About page END----------------------------------
 
 }

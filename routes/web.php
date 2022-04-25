@@ -12,6 +12,7 @@ use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\TamuPageController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SearchRoomController;
+use App\Http\Controllers\ProfileGuestController;
 
 // ->middleware('verified')
 
@@ -31,10 +32,15 @@ Route::get('/home', [TamuPageController::class, 'home'])->name('guest.home');
 Route::get('/rooms', [TamuPageController::class, 'rooms'])->name('guest.rooms');
 Route::get('/home/detail-rooms/{id}', [TamuPageController::class, 'detail_rooms'])->name('detail-kamar.tamu');
 Route::get('/home/fasilitas-hotel', [TamuPageController::class, 'fasilitas_hotel'])->name('fasilitas-hotel.tamu');
-Route::get('/home/detail-fasilitas-hotel/{id}', [TamuPageController::class, 'detail_fasilitas_hotel'])->name('detail-fasilitas-hotel.tamu');
+Route::get('/detail-fasilitas-hotel/{id}', [TamuPageController::class, 'detail_fasilitas_hotel'])->name('detail-fasilitas-hotel.tamu');
 Route::get('/home/contact-us', [TamuPageController::class, 'kirimEmail'])->name('contact.kirim');
 Route::post('/home/detail-rooms/{id}', [TamuPageController::class, 'makeRoomOrder'])->name('guest.roomOrder');
-Route::get('/home/make-order/{id}', [TamuPageController::class, 'makeRoomOrderDetail'])->name('guest.paymentDetail');
+Route::delete('/home/detail-rooms/{id}', [TamuPageController::class, 'destroyOrder'])->name('guest.destroy-order');
+Route::get('/home/make-order/{pemesanan}/room/{kamar}', [TamuPageController::class, 'makeRoomOrderDetail'])->name('guest.paymentDetail');
+Route::get('/about', [TamuPageController::class, 'about'])->name('about.guest');
+Route::get('/profile', [ProfileGuestController::class, 'index'])->name('profile.index');
+Route::get('/profile/edit', [ProfileGuestController::class, 'edit'])->name('profile.edit');
+Route::get('/profile/update', [ProfileGuestController::class, 'update'])->name('profile.update');
 // ----------------------------------End Guest Page----------------------------------
 
 // ----------------------------------Guest search room Page----------------------------------

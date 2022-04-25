@@ -38,19 +38,23 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link
+                    <a class="nav-link nav-after
                     {{ 'home' == request()->path() ? 'active' : '' }}
                     {{ '/' == request()->path() ? 'active' : '' }}"
                     href="{{ route('guest.home') }}">Home</a>
 
-                    <a class="nav-link
+                    <a class="nav-link nav-after
                     {{ 'rooms' == request()->path() ? 'active' : '' }}"
                     href="{{ route('guest.rooms') }}">Rooms</a>
 
-                    <a class="nav-link
-                    {{ 'home/fasilitas-hotel' == request()->path() ? 'active' : '' }}"
+                    <a class="nav-link nav-after
+                    {{ 'fasilitas-hotel' == request()->path() ? 'active' : '' }}"
                     href="{{ route('fasilitas-hotel.tamu') }}">Facilites</a>
-                    <a class="nav-link" href="#">About</a>
+
+                    <a class="nav-link nav-after
+                    {{ 'about' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('about.guest') }}">About</a>
+
                     @if (Auth::user())
                     <div class="dropdown">
                         <p class=" nav-item dropdown-toggle text-capitalize btn"
@@ -58,7 +62,7 @@
                         aria-expanded="true">{{ Auth::user()->nama_pemesan }}</p>
                         <div class="dropdown-menu border" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{{ route('logout.guest') }}"> <i class="fas fa-sign-out-alt"></i> Logout</a>
-                            <a class="dropdown-item" href="#"> <i class="fas fa-user-alt"></i> Profile</a>
+                            <a class="dropdown-item" href="{{ route('profile.index') }}"> <i class="fas fa-user-alt"></i> Profile</a>
                         </div>
                     </div>
                     @else
@@ -297,18 +301,21 @@
         </div>
     </div> --}}
 
-    <footer class="sticky-footer footer-parent py-3 mb-0">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto copyright main-footer">
-                <span>copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script> - developed by
-                    <b><a href="https://github.com/DafiNMaulana/" target="_blank">Dafi Nurrohman Maulana</a></b>
-                </span>
-            </div>
-        </div>
-    </footer>
+    <footer class="py-3 footer-parent" style="margin-top: 100px">
+        <ul class="nav justify-content-center border-bottom border-secondary pb-3 mb-3">
+          <li class="nav-item"><a href="{{ route('guest.home') }}" class="nav-link px-2 text-muted">Home</a></li>
+          <li class="nav-item"><a href="{{ route('guest.rooms') }}" class="nav-link px-2 text-muted">Rooms</a></li>
+          <li class="nav-item"><a href="{{ route('fasilitas-hotel.tamu') }}" class="nav-link px-2 text-muted">Hotel Facilities</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">{{ Auth::user()->nama_pemesan }}</a></li>
+        </ul>
+        <div class="d-flex justify-content-center col-12">
+            <p class="text-muted">&copy; 2021 Developed By, Dafi Nurrohman Maulana</p>
+            <ul class="list-unstyled d-flex">
+              <li class="ml-3"><a class="text-muted" href="https://github.com/DafiNMaulana" target="_blank"><i class="fab fa-github"></i></a></li>
+            </ul>
+          </div>
+      </footer>
     {{-- end footer --}}
 
     <script src="{{ asset('RA/vendor/jquery/jquery.min.js') }}"></script>

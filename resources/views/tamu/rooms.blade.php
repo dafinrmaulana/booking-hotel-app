@@ -12,7 +12,7 @@
             <div class="breadcrumb-text">
                 <h2>Our Rooms</h2>
                 <div class="bt-option">
-                    <a href="./home.html">Home</a>
+                    <a href="/home">Home</a>
                     <i class="fas fa-angle-right"></i>
                     <span>Rooms</span>
                 </div>

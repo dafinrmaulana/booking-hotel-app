@@ -124,7 +124,7 @@
                     <br>
                     <p class="text-secondary"> {{ Str::limit($about->about, 250) }} </p>
                     <br>
-                    <a href="" class="btn btn-warning rounded-0 text-light">Learn More</a>
+                    <a href="{{ route('about.guest') }}" class="btn btn-warning rounded-0 text-light">Learn More</a>
                 </div>
             @endif
         </div>

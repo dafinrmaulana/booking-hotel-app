@@ -24,8 +24,8 @@
 
 @section('main')
 <div class="container-fluid">
-    <div class="row hotel-facilites-bg mb-5 pb-5">
-        @foreelse ($fasilitas as $fasilis)
+    <div class="row hotel-facilites-bg mb-5 mt-3 pb-5 justify-content-center">
+        @forelse ($fasilitas as $fasilis)
             <div class="col-lg-3 col-md-3 col-6 mb-4 mt-5 text-center card-services">
                 <div class="card shadow position-relative card-serv border-0">
                     <div class="position-absolute p-1 px-2 rounded-bottom title-serv bg-warning font-weight-bold"
@@ -41,9 +41,15 @@
                         class="btn btn-primary services-detail">Detail</a>
                 </div>
             </div>
-        @empty 
-
-        @endforeelse
+        @empty
+        <div class="col-lg-6 col-md-3 col-6 mb-4 mt-5">
+            <div class="card p-3">
+                <p>
+                    Ups Sorry There is no data found
+                </p>
+            </div>
+        </div>
+        @endforelse
     </div>
     <div class="row justify-content-center">
         {{ $fasilitas->links() }}

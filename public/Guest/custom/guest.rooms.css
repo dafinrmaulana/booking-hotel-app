@@ -15,7 +15,7 @@
         margin-left: auto;
     }
 
-    .nav-link:hover::after {
+    .nav-after:hover::after {
         content: '';
         display: block;
         width: 50%;
