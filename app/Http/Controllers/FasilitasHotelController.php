@@ -39,14 +39,17 @@ class FasilitasHotelController extends Controller
     {
         $validatedData = $request->validate([
             'nama_fasilitas_hotel' => 'required|not_regex:/[0-9!@#$%^&*()]/|unique:fasilitas_hotel,nama_fasilitas_hotel',
-            'foto' => 'required',
+            'foto' => 'required|image|mimes:jpg,png,jpeg|max:10240',
             'keterangan' => 'nullable'
         ],
         [
             'nama_fasilitas_hotel.required'=>'Nama harus diisi !',
             'nama_fasilitas_hotel.not_regex'=>'Nama tidak boleh mengandung angka ataupun karakter spesial(!@#$%^&*)',
             'nama_fasilitas_hotel.unique'=>'Nama sudah ada !',
-            'foto.required'=>'Foto harus diisi !'
+            'foto.required'=>'Foto harus diisi !',
+            'foto.image'=>'foto harus berupa gambar!',
+            'foto.mimes'=>'foto harus ber ekstensi file jpg,png,jpeg',
+            'foto.max'=>'Maksimal ukuran foto 10MB',
         ]);
         $namaAsal = $request->foto;
         $namaBaru = time().rand(100, 999).".".$namaAsal->getClientOriginalExtension();
@@ -95,13 +98,16 @@ class FasilitasHotelController extends Controller
         $fasilitasHotel = fasilitasHotel::findorfail($id);
         $request->validate([
             'nama_fasilitas_hotel' => "required|not_regex:/[0-9!@#$%^&*]/|unique:fasilitas_hotel,nama_fasilitas_hotel, {$fasilitasHotel->id}",
-            'foto' => 'nullable',
+            'foto' => 'nullable|image|mimes:jpg,png,jpeg|max:10240',
             'keterangan' => 'nullable'
         ],
         [
             'nama_fasilitas_hotel.required'=>'Nama harus diisi !',
             'nama_fasilitas_hotel.not_regex'=>'Nama tidak boleh mengandung angka ataupun karakter spesial(!@#$%^&*)',
             'nama_fasilitas_hotel.unique'=>'Nama sudah ada !',
+            'foto.image'=>'foto harus berupa gambar!',
+            'foto.mimes'=>'foto harus ber ekstensi file jpg,png,jpeg',
+            'foto.max'=>'Maksimal ukuran foto 10MB',
         ]);
         if ( $fasilitasHotel->foto && $request->foto) {
             if(file_exists("img/fasilitasHotel/".$fasilitasHotel->foto)) {

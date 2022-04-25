@@ -43,7 +43,7 @@ class KamarController extends Controller
             'nama_kamar'=>'required|min:3|max:20|unique:kamar|not_regex:/[0-9!@#$%^&*]/',
             'jumlah'=>'required|numeric|integer|min:1|not_regex:/[a-zA-z ]/',
             'harga'=>'required|numeric|min:100000|not_regex:/[a-zA-z ]/',
-            'foto'=>'required',
+            'foto'=>'required|image|mimes:jpg,png,jpeg|max:10240',
         ],
         [
             'nama_kamar.required'=>'Nama perlu diisi',
@@ -62,6 +62,9 @@ class KamarController extends Controller
             'harga.numeric'=>'Harga kamar harus berupa angka !',
             'harga.integer'=>'Harga kamar harus berupa angka !',
             'foto.required'=>'Foto perlu diisi',
+            'foto.image'=>'foto harus berupa gambar!',
+            'foto.mimes'=>'foto harus ber ekstensi file jpg,png,jpeg',
+            'foto.max'=>'Maksimal ukuran foto 10MB',
         ]);
         $name = $request->foto;
         $nameFile =time().rand(100, 999).".".$name->getClientOriginalExtension();
@@ -121,7 +124,7 @@ class KamarController extends Controller
             'nama_kamar'=>"required|min:3|max:20|unique:kamar,nama_kamar,{$kamar->id}|not_regex:/[0-9!@#$%^&*]/",
             'jumlah'=>'required|numeric|integer|min:1|not_regex:/[a-zA-z ]/',
             'harga'=>'required|numeric|integer|min:100000|not_regex:/[a-zA-z ]/',
-            'foto'=>'nullable',
+            'foto'=>'nullable|image|mimes:jpg,png,jpeg|max:10240',
             'keterangan'=>'nullable',
         ],
         [
@@ -141,7 +144,9 @@ class KamarController extends Controller
             'harga.numeric'=>'Harga kamar harus berupa angka !',
             'harga.integer'=>'Harga kamar minimal Rp. 100.000(Untuk field nya mohon untuk tidak gunakan . titik)',
             'foto.required'=>'Foto perlu diisi',
-            'keterangan.required'=>'Keterangan perlu diisi',
+            'foto.image'=>'foto harus berupa gambar!',
+            'foto.mimes'=>'foto harus ber ekstensi file jpg,png,jpeg',
+            'foto.max'=>'Maksimal ukuran foto 10MB',
         ]);
         if ( $kamar->foto && $request->foto) {
             if(file_exists("img/kamar/".$kamar->foto)) {

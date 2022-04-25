@@ -38,11 +38,14 @@ class AboutController extends Controller
     {
         $request->validate([
             'about'=>'required',
-            'foto'=>'required'
+            'foto'=>'required|image|mimes:jpg,png,jpeg|max:10240'
         ],
         [
             'about.required'=>'About harus diisi !',
             'foto.required'=>'Foto harus diisi !',
+            'foto.image'=>'foto harus berupa gambar!',
+            'foto.mimes'=>'foto harus ber ekstensi file jpg,png,jpeg',
+            'foto.max'=>'Maksimal ukuran foto 10MB',
         ]);
         $name = $request->foto;
         $nameFile =time().rand(100, 999).".".$name->getClientOriginalExtension();
@@ -91,11 +94,14 @@ class AboutController extends Controller
         $about = about::findorfail($id);
         $request->validate([
             'about'=>'nullable|min:3',
-            'foto'=>'nullable'
+            'foto'=>'nullable|image|mimes:jpg,png,jpeg|max:10240'
         ],
         [
             'about.min'=>'Minimal 3 karakter',
             'foto.required'=>'Foto harus diisi !',
+            'foto.image'=>'foto harus berupa gambar!',
+            'foto.mimes'=>'foto harus ber ekstensi file jpg,png,jpeg',
+            'foto.max'=>'Maksimal ukuran foto 10MB',
         ]);
         if ( $about->foto && $request->foto) {
             if(file_exists("img/about/".$about->foto)) {
