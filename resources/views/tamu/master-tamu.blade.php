@@ -39,12 +39,17 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link
-                    {{ '/home' == request()->path() ? 'active' : '' }}
+                    {{ 'home' == request()->path() ? 'active' : '' }}
                     {{ '/' == request()->path() ? 'active' : '' }}"
                     href="{{ route('guest.home') }}">Home</a>
 
-                    <a class="nav-link {{ 'rooms' == request()->path() ? 'active' : '' }}" href="{{ route('guest.rooms') }}">Rooms</a>
-                    <a class="nav-link" href="#">Facilites</a>
+                    <a class="nav-link
+                    {{ 'rooms' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('guest.rooms') }}">Rooms</a>
+
+                    <a class="nav-link
+                    {{ 'home/fasilitas-hotel' == request()->path() ? 'active' : '' }}"
+                    href="{{ route('fasilitas-hotel.tamu') }}">Facilites</a>
                     <a class="nav-link" href="#">About</a>
                     @if (Auth::user())
                     <div class="dropdown">

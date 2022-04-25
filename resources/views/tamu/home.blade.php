@@ -31,7 +31,7 @@
     {{-- end jumbotron slider --}}
 
     {{-- search room --}}
-    <div class="container">
+    {{-- <div class="container">
         <div class="row justify-content-center ">
             <div class="col-8 search-panel mb-3 shadow">
                 <div class="row align-items-center">
@@ -41,16 +41,22 @@
                     </div>
 
                     <div class="col-12 col-lg-8">
+                        <form action="{{ route('search.guest.room') }}" method="post">
+                            @csrf
                         <div class="row">
                             <div class="col-lg-5 p-2">
                                 <div class="form-group">
                                     <label for="checkin">Check IN</label>
                                     <input type="date"
-                                    class="form-control"
+                                    class="form-control @error('checkin') is-invalid @enderror"
                                     placeholder="Check IN"
+                                    name="checkin"
                                     id="checkin"
                                     value="{{ \Carbon\Carbon::now()->format('Y-m-d')}}"
                                     aria-describedby="checkin">
+                                    @error('checkin')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -58,30 +64,48 @@
                                 <div class="form-group">
                                     <label for="checkin">Check OUT</label>
                                     <input type="date"
-                                    class="form-control"
+                                    name="checkout"
+                                    class="form-control  @error('checkout') is-invalid @enderror"
                                     placeholder="Check OUT"
                                     value="{{ \Carbon\Carbon::tomorrow()->format('Y-m-d')}}"
                                     id="checkout" aria-describedby="checkout">
+                                    @error('checkout')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-lg-5 p-2">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" placeholder="Rooms Booked" id="jumlah"
-                                        aria-describedby="jumlah">
+                                    <input type="number"
+                                    class="form-control @error('total') is-invalid @enderror"
+                                    placeholder="Total Room"
+                                    name="total"
+                                    id="jumlah"
+                                    aria-describedby="jumlah">
+                                    @error('total')
+                                    <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
 
-                            <div class="col-lg-5 p-2 text-center">
-                                <button class="btn btn-primary tmbl-book">Book now</button>
+                            @if (Auth::user() && Auth::user()->email_verified_at)
+                            <div class="col-lg-5 p-2">
+                            <button type="submit" class="btn btn-primary tmbl-book">Book Now</button>
                             </div>
+                            @else
+                            <div class="col-lg-5 p-2">
+                            <button type="button" class="btn btn-dark tmbl" data-toggle="modal" data-target="#loginModal">Login / Verified First</button>
+                            </div>
+                            @endif
                         </div>
+                        </form>
                     </div>
 
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- end search room --}}
 @endsection
 
@@ -130,22 +154,22 @@
                         @endif
                         <div class="card-body">
                             {{-- <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span> --}}
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span> --}}
 
                             <p class="card-text">{{ Str::limit($kamar->keterangan, 60) }}</p>
 
                             {{-- <div class="facilites-icon">
                             <i class="fas fa-wifi"></i><i class="fas fa-phone ml-2"></i><i class="fas fa-bed ml-2"></i>
-                        </div> --}}
+                            </div> --}}
                             <br>
 
                             <strong class="price">Rp. {{ number_format($kamar->harga, 2, '.', '.') }}
                                 /Night</strong> <br>
                             <a href="{{ route('detail-kamar.tamu', $kamar->id) }}"
-                            class="btn btn-primary btn-pesan mt-2">Book Now</a>
+                            class="btn btn-primary btn-pesan mt-2">Details</a>
                         </div>
                     </div>
                 </div>

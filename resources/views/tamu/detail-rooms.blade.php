@@ -98,6 +98,7 @@ Detail Rooms
                                             class="form-control @error('nama_tamu') is-invalid @enderror"
                                             placeholder="Guest Name"
                                             name="nama_tamu"
+                                            value="{{ old('nama_tamu') }}"
                                             aria-label="Guest Name"
                                             aria-describedby="basic-addon1">
                                         </div>
@@ -148,7 +149,7 @@ Detail Rooms
                                     </div>
                                 </div>
 
-                                @if (Auth::user()->email_verified_at != null)
+                                @if (Auth::user() && Auth::user()->email_verified_at)
                                 <div class="col-12">
                                 <button type="submit" class="btn btn-primary">Book Now</button>
                                 </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\FasilitasHotelController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\TamuPageController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\SearchRoomController;
 
 // ->middleware('verified')
 
@@ -28,15 +29,25 @@ Route::get('/home/logout-guest', [AuthController::class, 'logout_guest'])->name(
 Route::get('/', [TamuPageController::class, 'home'])->name('guest.home');
 Route::get('/home', [TamuPageController::class, 'home'])->name('guest.home');
 Route::get('/rooms', [TamuPageController::class, 'rooms'])->name('guest.rooms');
-Route::get('/home/detail-rooms/{id}', [TamuPageController::class, 'detail_rooms'])->name('detail-kamar.tamu')->middleware('auth');
+Route::get('/home/detail-rooms/{id}', [TamuPageController::class, 'detail_rooms'])->name('detail-kamar.tamu');
+Route::get('/home/fasilitas-hotel', [TamuPageController::class, 'fasilitas_hotel'])->name('fasilitas-hotel.tamu');
 Route::get('/home/detail-fasilitas-hotel/{id}', [TamuPageController::class, 'detail_fasilitas_hotel'])->name('detail-fasilitas-hotel.tamu');
 Route::get('/home/contact-us', [TamuPageController::class, 'kirimEmail'])->name('contact.kirim');
 Route::post('/home/detail-rooms/{id}', [TamuPageController::class, 'makeRoomOrder'])->name('guest.roomOrder');
 Route::get('/home/make-order/{id}', [TamuPageController::class, 'makeRoomOrderDetail'])->name('guest.paymentDetail');
 // ----------------------------------End Guest Page----------------------------------
 
+// ----------------------------------Guest search room Page----------------------------------
+// Route::post('/home/guest-search-room', [SearchRoomController::class, 'search'])->name('search.guest.room');
+// Route::get('/home/guest-search-room/result/{id}', [SearchRoomController::class, 'searchResult'])->name('search.guest.room.result');
+// Route::get('/home/guest-search-room/result/{$id}/detail-kamar/{id}/', [SearchRoomController::class, 'detailRoomsSearch'])->name('detail-kamar.tamu-search');
+// ----------------------------------Guest search room Page END----------------------------------
+
+
 // ----------------------------------Guest Payment----------------------------------
 Route::post('/home/make-order/payment/{id}', [TamuPageController::class, 'makePayment'])->name('makePayment');
+Route::get('/home/make-order/e-booking-card/{id}', [TamuPageController::class, 'makeEcard'])->name('makeEbooking');
+Route::get('/home/make-order/e-booking-card/kirim-email/{id}', [TamuPageController::class, 'kirimEmailguest'])->name('email.kirim.guest');
 // ----------------------------------end Guest Payment----------------------------------
 
 // ----------------------------------guest verify email----------------------------------

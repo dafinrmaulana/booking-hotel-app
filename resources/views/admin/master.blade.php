@@ -298,7 +298,8 @@
                 title: 'Sukses! Data berhasil ditambahkan'
                 })
             @endif
-            // store message
+
+            // sent message
             @if (session()->has('email'))
                 const Toast = Swal.mixin({
                 toast: true,

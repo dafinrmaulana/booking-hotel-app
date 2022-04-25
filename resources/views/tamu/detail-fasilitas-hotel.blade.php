@@ -1,6 +1,6 @@
 @extends('tamu.master-tamu')
 @section('title')
-    Rooms
+    Hotel Facilities
 @endsection
 @section('style')
 <link href="{{ asset('Guest/custom/guest.rooms.css') }}" rel="stylesheet" type="text/css">

@@ -15,7 +15,7 @@ Order Detail
                 <div class="bt-option">
                     <a href="{{ route('guest.home') }}">Home</a>
                     <i class="fas fa-angle-right"></i>
-                    <a href="{{ route('guest.home') }}">Detail Rooms</a>
+                    <a href="{{ route('detail-kamar.tamu', $kamar->id) }}">Detail Rooms</a>
                     <i class="fas fa-angle-right"></i>
                     <span>Order Detail</span>
                 </div>
@@ -271,7 +271,7 @@ Order Detail
                             <div class="col-lg-8">
                                 <p>
                                     After the Customer successfully makes a payment, the Guest will be
-                                    issued an <strong class="text-capitalize" style="text-decoration: underline">booking id card</strong> as proof of payment. so that when the Guest
+                                    issued an <strong class="text-capitalize" style="text-decoration: underline">E-booking id card</strong> as proof of payment. so that when the Guest
                                     checks in, the Guest only has to submit their personal data to the
                                     receptionist in the form of an ID card/steering license, for example
                                 </p>
@@ -287,9 +287,9 @@ Order Detail
                             <div class="col-lg-8">
                                 <p>
                                     after the room reservation is successfully made, the user will be
-                                    given a <strong class="text-capitalize" style="text-decoration: underline">booking id card</strong> which serves as proof of the reservation, so
+                                    given a <strong class="text-capitalize" style="text-decoration: underline">E-booking id card</strong> which serves as proof of the reservation, so
                                     the user only needs to show it to the receptionist and then pay the bill.
-                                    <strong>the <strong class="text-capitalize" style="text-decoration: underline">booking id card</strong> is only valid for 7 days after ordering</strong>, after that day the
+                                    <strong>the <strong class="text-capitalize" style="text-decoration: underline">E-booking id card</strong> is only valid for 7 days after ordering</strong>, after that day the
                                     booking is considered <strong class="text-danger">cancelled</strong>.
                                 </p>
                             </div>
@@ -317,6 +317,9 @@ Order Detail
 
 @push('guest-page-script')
 <script>
+$(document).ready(function() {
+
+    // ---------------------------- payment method on change ------------------------------
     $('#pay-now').show();
     $('#pay-later').hide();
     $('#method-select').on('change', function() {
@@ -329,5 +332,28 @@ Order Detail
         $('#pay-now').hide();
         }
     });
+    // ---------------------------- payment method on change end ------------------------------
+
+    // ---------------------------- payment method popup confirm ------------------------------
+    $('#pay-later').click(function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        Swal.fire({
+            title: 'Are You Sure?',
+            text: "Are you sure want to book this room? *",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sure'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location = "{{ route('makeEbooking', $pemesanan->id) }}"
+            }
+        })
+    });
+    // ---------------------------- payment method popup confirm end ------------------------------
+
+});
 </script>
 @endpush

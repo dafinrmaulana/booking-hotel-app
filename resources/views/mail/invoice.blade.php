@@ -211,7 +211,7 @@
                             <tr>
                               <td align="left" style="font-size:0px;padding:10px 25px;padding-right:25px;padding-left:25px;word-break:break-word;">
                                 <div style="font-family:Assistant,Hevaltica,Arial,sans-serif;font-size:18px;line-height:28px;text-align:left;color:#000000;">
-                                    Hello Costumer <br /><br /> Your transaction successfully printed <br /> Booking ID<strong>#IKH-{{ $data->id }} invoice </strong></div>
+                                    Hello Costumer <br /><br /> Your transaction successfully printed <br /> Booking ID<strong>{{ 'ID#RKH-'.$data->id.$data->kamar->id. date('m', strtotime($data->tanggal_checkin)) }}</strong></div>
                               </td>
                             </tr>
                             <tr>

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\pemesanan;
 use Illuminate\Support\Carbon;
 use App\Models\paymentTransaction;
+use App\Mail\Invoice;
 
 
 class TamuPageController extends Controller
@@ -33,7 +34,7 @@ class TamuPageController extends Controller
     // ----------------------------------Rooms page----------------------------------
     public function rooms()
     {
-        $kamar = kamar::paginate(6);
+        $kamar = kamar::paginate(10);
         return view('tamu.rooms', compact('kamar'));
     }
     // ----------------------------------End Rooms page----------------------------------
@@ -51,6 +52,11 @@ class TamuPageController extends Controller
 
 
     // ----------------------------------Hotel Facilities----------------------------------
+    public function fasilitas_hotel() {
+        $fasilitas = fasilitasHotel::paginate(8);
+        return view('tamu.fasilitas-hotel', compact('fasilitas'));
+    }
+
     public function detail_fasilitas_hotel($id)
     {
         $fasilitas = fasilitasHotel::findorfail($id);
@@ -93,9 +99,18 @@ class TamuPageController extends Controller
     {
         $request->validate([
             'nama_regist'=>'required|min:3|not_regex:/[0-9!@#$%^&*]/',
-            'email_regist'=>'required|email|min:3|unique:tamu,email|email:dns',
+            'email_regist'=>'required|min:3|unique:tamu,email|email:dns',
             'no_hp_regist'=>'nullable|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
             'password_regist'=>'required|min:8|max:1024|same:password_confirmation_regist|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
+        ],
+        [
+            'nama_regist.required'=>'The Name is required!',
+            'nama_regist.min'=>'The Name field At least contain 3 character',
+            'nama_regist.not_regex'=>'The Name field cannot contain a number or special character',
+            'email_regist.required'=>'The email field is required',
+            'email_regist.min'=>'The email field At least contain 3 character',
+            'email_regist.unique'=>'The email has been registered',
+            'email_regist.email'=>'The email field must be a valid email',
         ]);
         $user = tamu::create([
             'nama_pemesan'=>$request->nama_regist,
@@ -108,7 +123,7 @@ class TamuPageController extends Controller
         event(new Registered($user));
         Auth::login($user);
 
-        return redirect('/')->with('regist', 'regist');
+        return redirect('/email/verify')->with('regist', 'regist');
     }
     // ----------------------------------End Sign IN----------------------------------
 
@@ -176,6 +191,22 @@ class TamuPageController extends Controller
     }
     // ----------------------------------End Make Room Order Detal----------------------------------
 
-    // ----------------------------------Make payment----------------------------------
+    // ----------------------------------Make e booking card----------------------------------
+    public function makeEcard($id)
+    {
+        $kamar = kamar::with('fasilitas')->where('id', $id)->first();
+        $pemesanan = pemesanan::with('kamar')->find($id);
+        $lamanya = $this->lamanya($pemesanan->tanggal_checkin, $pemesanan->tanggal_checkout);
+        return view('tamu.make-ecard', compact('pemesanan', 'kamar', 'lamanya'));
+    }
+
+    public function kirimEmailguest($id) {
+        $data = pemesanan::with('kamar')->find($id);
+        Mail::to($data->email)->send(
+            new invoice($data)
+        );
+        return back()->with('email', 'email');
+    }
+    // ----------------------------------Make e booking card end----------------------------------
 
 }
