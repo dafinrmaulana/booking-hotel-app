@@ -166,7 +166,8 @@ class TamuPageController extends Controller
 
         if($request->jumlah_kamar_dipesan) {
             $kamar->update([
-                'jumlah_kamar' => $kamar->jumlah_kamar - $request->jumlah_kamar_dipesan
+                'jumlah_tersedia' => $kamar->jumlah_tersedia - $request->jumlah_kamar_dipesan,
+                'jumlah_terisi' => $kamar->jumlah_terisi + $request->jumlah_kamar_dipesan,
             ]);
         }
 

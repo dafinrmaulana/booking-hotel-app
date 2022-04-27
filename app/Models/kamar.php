@@ -9,7 +9,7 @@ class kamar extends Model
 {
     use HasFactory;
     protected $table = 'kamar';
-    protected $fillable = ['nama_kamar', 'jumlah', 'harga', 'foto', 'keterangan'];
+    protected $guarded = [];
 
     public function fasilitas() {
         return $this->belongsToMany(fasilitasKamar::class, 'fasilitas_kamar_store', 'kamar_id', 'fasilitasKamar_id')->withTimestamps();

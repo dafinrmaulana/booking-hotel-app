@@ -69,11 +69,15 @@ class KamarController extends Controller
         $name = $request->foto;
         $nameFile =time().rand(100, 999).".".$name->getClientOriginalExtension();
 
-        $kamar = $request->all();
-        $kamar['foto']=$nameFile;
-
+        $kamar = kamar::create([
+            'nama_kamar'=>$request->nama_kamar,
+            'foto'=>$nameFile,
+            'jumlah_kamar'=>$request->jumlah,
+            'jumlah_tersedia'=>$request->jumlah,
+            'harga'=>$request->harga,
+            'keterangan'=>$request->keterangan,
+        ]);
         $name->move(public_path().'/img/kamar', $nameFile);
-        $kamar = kamar::create($kamar);
         $kamar->fasilitas()->attach($request->input('fasilitasKamar_id'));
         return back()->with('store', 'store');
     }

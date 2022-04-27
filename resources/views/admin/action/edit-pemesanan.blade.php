@@ -51,7 +51,7 @@
                             <div class="form-group col-12">
                                 <label for="nama_kamar">Status</label>
                                 <select name="status" class="form-control form-control-sm">
-                                    @if ($data->status_pemesan == 'unpaid')
+                                    @if ($data->status_pemesan == 'pending')
                                         <option value="cancel">Cancel</option>
                                         <option value="checkin" selected> Check IN</option>
                                     @endif

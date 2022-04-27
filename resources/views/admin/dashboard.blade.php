@@ -13,6 +13,22 @@
 
     <div class="row mb-3">
         <div class="row">
+            <!-- Total kamar -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Total Kamar</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $total_kamar }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-bed fa-2x text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Kamar tersedia Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100">
@@ -20,10 +36,26 @@
                         <div class="row align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Kamar tersedia</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $kamar }}</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $kamar_tersedia }}</div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-bed fa-2x text-primary"></i>
+                                <i class="fas fa-door-open fa-2x text-success"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Kamar terisi Card -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Kamar Terisi</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $kamar_terisi }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-door-closed fa-2x text-warning"></i>
                             </div>
                         </div>
                     </div>
@@ -77,23 +109,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Pending Requests Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Pemesanan kamar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $unpaid }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-comments fa-2x text-warning"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Checkin Card -->
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card h-100">
@@ -122,23 +137,6 @@
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-sign-out-alt fa-2x text-danger"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- fasilitas Card -->
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Fasilitas kamar</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $fasilitasKamar }}</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-mug-hot fa-2x text-primary"></i>
                             </div>
                         </div>
                     </div>

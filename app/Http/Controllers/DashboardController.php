@@ -19,16 +19,20 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $kamar = kamar::count();
+        $kamar_tersedia = kamar::sum('jumlah_tersedia');
+        $kamar_terisi = kamar::sum('jumlah_terisi');
+        $total_kamar = kamar::sum('jumlah_kamar');
         $tamu = tamu::count();
         $fasilitasKamar = fasilitasKamar::count();
         $admin = admin::where('role', 'admin')->count();
         $resepsionis = admin::where('role', 'resepsionis')->count();
         $checkin = pemesanan::where('status_pemesan', 'checkin')->count();
         $checkout = pemesanan::where('status_pemesan', 'checkout')->count();
-        $unpaid = pemesanan::where('status_pemesan', 'unpaid')->count();
+        $unpaid = pemesanan::where('status_pemesan', 'pending')->count();
         return view('admin.dashboard', [
-            'kamar' => $kamar,
+            'kamar_tersedia' => $kamar_tersedia,
+            'kamar_terisi' => $kamar_terisi,
+            'total_kamar' => $total_kamar,
             'tamu' => $tamu,
             'fasilitasKamar' => $fasilitasKamar,
             'admin' => $admin,

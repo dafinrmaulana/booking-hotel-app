@@ -43,13 +43,13 @@ class PemesananController extends Controller
      */
     public function store(Request $request)
     {
-        $kamar = kamar::select('id', 'jumlah', 'nama_kamar')->where('id', $request->kamar_id)->first();
-        $jumlah = $kamar->jumlah;
+        $kamar = kamar::select('id', 'jumlah_tersedia', 'nama_kamar')->where('id', $request->kamar_id)->first();
+        $jumlah = $kamar->jumlah_tersedia;
         $nama_kamar = $kamar->nama_kamar;
         $request->validate([
             'nama_pemesan' => 'required|not_regex:/[0-9!@#$%^&*]/',
             'nama_tamu' => 'required|not_regex:/[0-9!@#$%^&*]/',
-            'email' => 'required|unique:pemesanan,email',
+            'email' => 'required|unique:pemesanan,email|email:dns',
             'no_hp' => 'required|unique:pemesanan,no_hp|min:1|max:15|not_regex:/[A-Za-z!@#$%^&*]/',
             'jumlah_kamar_dipesan' => "required|numeric|integer|min:1|max:{$jumlah}",
             'tanggal_checkin' => 'required|after:yesterday',
@@ -62,6 +62,7 @@ class PemesananController extends Controller
             'nama_tamu.required'=>'Nama tamu harus diisi',
             'nama_tamu.not_regex'=>'Nama tamu tidak boleh mengandung angka ataupun karakter spesial(!@#$%^&*)',
             'email.required'=>'Email harus diisi',
+            'email.email'=>'Email harus valid',
             'email.unique'=>'Email sudah ada',
             'no_hp.required'=>'Nomor hp harus diisi',
             'no_hp.not_regex'=>'Nomor hp tidak boleh mengandung huruf ataupun karakter spesial(!@#$%^&*)',
@@ -78,15 +79,23 @@ class PemesananController extends Controller
             'tanggal_checkout.required'=>'Tanggal check OUT harus diisi',
             'tanggal_checkout.after'=>'Tanggal check OUT harus lebih dari tanggal checkin',
         ]);
-        $pemesanan = $request->all();
+        $pemesanan = pemesanan::create([
+            'nama_pemesan'=>$request->nama_pemesan,
+            'nama_tamu'=>$request->nama_tamu,
+            'email'=>$request->email,
+            'no_hp'=>$request->no_hp,
+            'tanggal_checkin'=>$request->tanggal_checkin,
+            'tanggal_checkout'=>$request->tanggal_checkout,
+            'jumlah_kamar_dipesan'=>$request->jumlah_kamar_dipesan,
+            'tanggal_dipesan'=>Carbon::now(),
+            'kamar_id'=>$request->kamar_id,
+        ]);
         if($request->jumlah_kamar_dipesan) {
             $kamar->update([
-                'jumlah' => $kamar->jumlah - $request->jumlah_kamar_dipesan
+                'jumlah_tersedia' => $kamar->jumlah_tersedia - $request->jumlah_kamar_dipesan,
+                'jumlah_terisi' => $kamar->jumlah_terisi + $request->jumlah_kamar_dipesan,
             ]);
         }
-        $pemesanan['tanggal_dipesan'] = Carbon::now();
-        $pemesanan['kamar_id'] = $request->kamar_id;
-        pemesanan::create($pemesanan);
         return back()->with('store', 'store');
     }
 
@@ -124,12 +133,16 @@ class PemesananController extends Controller
     public function update(Request $request, $id)
     {
         $unique = pemesanan::findorfail($id);
+        $kamar = kamar::select('id', 'jumlah_tersedia','jumlah_terisi' , 'nama_kamar')->where('id', $request->kamar_id)->first();
+        $jumlah_tersedia = $kamar->jumlah_tersedia;
+        $jumlah_terisi = $kamar->jumlah_terisi;
+
         $request->validate([
             'nama_pemesan' => 'required|not_regex:/[0-9!@#$%^&*]/',
             'nama_tamu' => 'required|not_regex:/[0-9!@#$%^&*]/',
             'email' => "required|unique:pemesanan,email,{$unique->id}",
             'no_hp' => "required|unique:pemesanan,no_hp,{$unique->id}|min:1|max:15|not_regex:/[A-Za-z!@#$%^&*]/",
-            'jumlah_kamar_dipesan' => 'required|numeric|integer|max:10|min:1',
+            'jumlah_kamar_dipesan' => "required|numeric|integer|max:{$jumlah_tersedia}|min:1",
             'tanggal_checkin' => 'required|after_or_equal:yesterday',
             'tanggal_checkout' => 'required|after_or_equal:tanggal_checkin',
         ],
@@ -156,20 +169,34 @@ class PemesananController extends Controller
             'tanggal_checkout.after_or_equal'=>'Tanggal checkout harus sama dengan tanggal checkin atau hari setelah nya',
         ]);
 
-        $data = [
-            'nama_tamu'=>$request->nama_tamu,
+        $pemesanan = pemesanan::find($id)->first();
+        // $kamar = kamar::where('id', $pemesanan->id)->first();
+        if ($request->status == 'checkout'){
+            $kamar->update([
+                'jumlah_tersedia' =>$jumlah_tersedia + $pemesanan->jumlah_kamar_dipesan,
+                'jumlah_terisi' =>$jumlah_terisi - $pemesanan->jumlah_kamar_dipesan
+            ]);
+        }
+        if ($request->status == 'cancel'){
+            $kamar->update([
+                'jumlah_tersedia' =>$jumlah_tersedia + $pemesanan->jumlah_kamar_dipesan,
+                'jumlah_terisi' =>$jumlah_terisi - $pemesanan->jumlah_kamar_dipesan
+            ]);
+        }
+        $pemesanan = [
             'nama_pemesan'=>$request->nama_pemesan,
+            'nama_tamu'=>$request->nama_tamu,
             'email'=>$request->email,
             'no_hp'=>$request->no_hp,
-            'jumlah_kamar_dipesan'=>$request->jumlah_kamar_dipesan,
-            'status_pemesan'=>'permintaan',
-            'tanggal_dipesan'=>Carbon::now(),
+            'status_pemesan'=>$request->status,
             'tanggal_checkin'=>$request->tanggal_checkin,
             'tanggal_checkout'=>$request->tanggal_checkout,
+            'jumlah_kamar_dipesan'=>$request->jumlah_kamar_dipesan,
+            'tanggal_dipesan'=>Carbon::now(),
             'kamar_id'=>$request->kamar_id,
-            'status_pemesan'=>$request->status,
         ];
-        pemesanan::where('id', $id)->update($data);
+
+        pemesanan::where('id', $id)->update($pemesanan);
         return redirect('admin/manage-pemesanan')->with('update', 'update');
     }
 
@@ -186,9 +213,15 @@ class PemesananController extends Controller
     }
 
     public function status(Request $request, $id) {
+        $kamar = kamar::select('id', 'jumlah', 'nama_kamar')->where('id', $request->kamar_id)->first();
         pemesanan::where('id', $id)->update([
             'status_pemesan' => $request->status,
         ]);
+        if($request->status_pemesan == 'cancel' || 'checkout') {
+            $kamar->update([
+                'jumlah' => $kamar->jumlah + $pemesanan->jumlah_kamar_dipesan
+            ]);
+        }
     }
 
     public function cetak($id) {

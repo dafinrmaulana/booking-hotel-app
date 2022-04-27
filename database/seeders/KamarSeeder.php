@@ -18,6 +18,8 @@ class KamarSeeder extends Seeder
         kamar::create([
             'nama'=>'deluxe',
             'jumlah'=>'200',
+            'jumlah_tersedia'=>'200',
+            'jumlah_terisi'=>'0',
             'harga'=>'200000',
             'foto'=>('/KamarSeeder/room-1.jpg'),
             'keterangan'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum cupiditate odio dolores quam porro dolorem nemo ad praesentium omnis totam eveniet eius',
@@ -25,6 +27,8 @@ class KamarSeeder extends Seeder
         kamar::create([
             'nama'=>'premium',
             'jumlah'=>'200',
+            'jumlah_tersedia'=>'200',
+            'jumlah_terisi'=>'0',
             'harga'=>'200000',
             'foto'=>('/KamarSeeder/room-2.jpg'),
             'keterangan'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum cupiditate odio dolores quam porro dolorem nemo ad praesentium omnis totam eveniet eius',
@@ -32,6 +36,8 @@ class KamarSeeder extends Seeder
         kamar::create([
             'nama'=>'Standar',
             'jumlah'=>'200',
+            'jumlah_tersedia'=>'200',
+            'jumlah_terisi'=>'0',
             'harga'=>'200000',
             'foto'=>('/KamarSeeder/room-3.jpg'),
             'keterangan'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum cupiditate odio dolores quam porro dolorem nemo ad praesentium omnis totam eveniet eius',
@@ -39,6 +45,8 @@ class KamarSeeder extends Seeder
         kamar::create([
             'nama'=>'prince',
             'jumlah'=>'200',
+            'jumlah_tersedia'=>'200',
+            'jumlah_terisi'=>'0',
             'harga'=>'200000',
             'foto'=>('/KamarSeeder/room-4.jpg'),
             'keterangan'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum cupiditate odio dolores quam porro dolorem nemo ad praesentium omnis totam eveniet eius',
@@ -46,6 +54,8 @@ class KamarSeeder extends Seeder
         kamar::create([
             'nama'=>'queen',
             'jumlah'=>'200',
+            'jumlah_tersedia'=>'200',
+            'jumlah_terisi'=>'0',
             'harga'=>'200000',
             'foto'=>('/KamarSeeder/room-5.jpg'),
             'keterangan'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum cupiditate odio dolores quam porro dolorem nemo ad praesentium omnis totam eveniet eius',
@@ -53,6 +63,8 @@ class KamarSeeder extends Seeder
         kamar::create([
             'nama'=>'king',
             'jumlah'=>'200',
+            'jumlah_tersedia'=>'200',
+            'jumlah_terisi'=>'0',
             'harga'=>'200000',
             'foto'=>('/KamarSeeder/room-6.jpg'),
             'keterangan'=>'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum cupiditate odio dolores quam porro dolorem nemo ad praesentium omnis totam eveniet eius',

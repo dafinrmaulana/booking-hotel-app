@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
 
         // \App\Models\admin::factory(8)->create();
-        \App\Models\kamar::factory(10)->create();
+        // \App\Models\kamar::factory(10)->create();
         // \App\Models\tamu::factory(5)->create();
         // \App\Models\pemesanan::factory(5)->create();
         \App\Models\fasilitasHotel::factory(5)->create();

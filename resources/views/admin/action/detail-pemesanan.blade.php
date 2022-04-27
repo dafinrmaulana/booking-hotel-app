@@ -46,7 +46,7 @@
                         @csrf
                         <input type="hidden" value="{{ $data->id }}" name="id" id="id_data"/>
                         <select name="status" class="form-control form-control-sm">
-                            @if ($data->status_pemesan == 'unpaid')
+                            @if ($data->status_pemesan == 'pending')
                             <option value="cancel">Cancel</option>
                             <option value="checkin" selected> Check IN</option>
                             @endif

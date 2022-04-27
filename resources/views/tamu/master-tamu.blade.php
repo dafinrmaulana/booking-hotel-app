@@ -307,7 +307,9 @@
           <li class="nav-item"><a href="{{ route('guest.rooms') }}" class="nav-link px-2 text-muted">Rooms</a></li>
           <li class="nav-item"><a href="{{ route('fasilitas-hotel.tamu') }}" class="nav-link px-2 text-muted">Hotel Facilities</a></li>
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+          @if (Auth::user())
           <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">{{ Auth::user()->nama_pemesan }}</a></li>
+          @endif
         </ul>
         <div class="d-flex justify-content-center col-12">
             <p class="text-muted">&copy; 2021 Developed By, Dafi Nurrohman Maulana</p>
