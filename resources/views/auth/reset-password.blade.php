@@ -65,14 +65,8 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input type="password" name="password"
-                                            class="form-control @error('password') is-invalid @enderror" id="password"
+                                            class="form-control @error('password') is-invalid @enderror" id="password_reset"
                                             placeholder="Enter password" aria-describedby="basic-addon2">
-                                        <div class="input-group-append show-trigger-2">
-                                            <span class="input-group-text" id="basic-addon2">
-                                                <i class="fas fa-eye d-none" id="hide_eye_regist"></i>
-                                                <i class="fas fa-eye-slash" id="show_eye_regist"></i>
-                                            </span>
-                                        </div>
                                     </div>
                                     @error('password')
                                     <small class="text-danger message-pass-regis">{{ $message }}</small>
@@ -100,3 +94,23 @@
 	</div>
 </div>
 @endsection
+@push('guest-page-script')
+<script>
+     // show hide password
+        $('.show-trigger').on('click', function() {
+            var x = document.getElementById("password_reset");
+            var show_eye = document.getElementById("show_eye");
+            var hide_eye = document.getElementById("hide_eye");
+            $('#hide_eye').removeClass("d-none");
+            if (x.type === "password") {
+                x.type = "text";
+                show_eye.style.display = "none";
+                hide_eye.style.display = "block";
+            } else {
+                x.type = "password";
+                show_eye.style.display = "block";
+                hide_eye.style.display = "none";
+            }
+        });
+</script>
+@endpush
