@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input type="password" name="password"
-                                            class="form-control @error('password') is-invalid @enderror" id="password_reset"
+                                            class="form-control @error('password') is-invalid @enderror" id="password"
                                             placeholder="Enter password" aria-describedby="basic-addon2">
                                     </div>
                                     @error('password')
@@ -94,23 +94,3 @@
 	</div>
 </div>
 @endsection
-@push('guest-page-script')
-<script>
-     // show hide password
-        $('.show-trigger').on('click', function() {
-            var x = document.getElementById("password_reset");
-            var show_eye = document.getElementById("show_eye");
-            var hide_eye = document.getElementById("hide_eye");
-            $('#hide_eye').removeClass("d-none");
-            if (x.type === "password") {
-                x.type = "text";
-                show_eye.style.display = "none";
-                hide_eye.style.display = "block";
-            } else {
-                x.type = "password";
-                show_eye.style.display = "block";
-                hide_eye.style.display = "none";
-            }
-        });
-</script>
-@endpush
