@@ -74,18 +74,19 @@ _dibawah ini merupakan cara pemasangan aplikasi ini ke dalam perangkat anda, sil
    ```
 4. konfigurasi file `.env`
    - karna saya menggunakan [mailtrap](mailtrap.io) maka langkah pertama sebelum anda lanjut ke langkah berikut nya adalah anda harus mendaftarkan diri anda dulu ke web mailtrap sehingga anda bisa mempunyai `mail username` dan `mail password` sehingga anda bisa lanjut ke langkah berikutnya. atau anda bisa konfigurasi email ini dengan smtp Gmail anda. untuk cara lengkap nya anda bisa lihat [tutorial nya disini](https://www.niagahoster.co.id/blog/cara-kirim-email-laravel/#1_1_Konfigurasi_Kirim_Email_Laravel_via_Gmail)
-   ```sh
-    MAIL_MAILER=smtp
-    MAIL_HOST=smtp.mailtrap.io
-    MAIL_PORT=2525
-    MAIL_USERNAME=mail_username_anda
-    MAIL_PASSWORD=mail_password_anda
-    MAIL_ENCRYPTION=null
-    MAIL_FROM_ADDRESS="ketaksaanhotelujikom@gmail.com"
-    MAIL_FROM_NAME="${APP_NAME}"
-   ```
+       ```sh
+        MAIL_MAILER=smtp
+        MAIL_HOST=smtp.mailtrap.io
+        MAIL_PORT=2525
+        MAIL_USERNAME=mail_username_anda
+        MAIL_PASSWORD=mail_password_anda
+        MAIL_ENCRYPTION=null
+        MAIL_FROM_ADDRESS="ketaksaanhotelujikom@gmail.com"
+        MAIL_FROM_NAME="${APP_NAME}"
+       ```
 5. konfigurasi database silahkan anda buka DBMS anda dan buat database `data_hotel`
-6. Migrate dan seeding
+6. aktifkan database lokal anda, silahkan buka XAMPP atau DBMS kesayangan anda lalu start MySQL
+7. Migrate dan seeding
      ```sh
      php artisan migrate:seed
    ```
