@@ -59,7 +59,7 @@ terimakasih kepada mas Indri junanda yang telah membuat template yang luar biasa
 
 _dibawah ini merupakan cara pemasangan aplikasi ini ke dalam perangkat anda, silahkan simak dengan seksama agar tidak terjadi kesalahpahaman._
 
-1. Dalam hal ini pertama tama and harus memiliki aplikasi pendukung agar web ini bisa berjalan :
+1. Dalam hal ini pertama tama anda harus memiliki aplikasi pendukung agar web ini bisa berjalan :
     - install ``Xampp``
     - install ``Composer``
     - minimal ``Php versi 8^``
@@ -73,7 +73,7 @@ _dibawah ini merupakan cara pemasangan aplikasi ini ke dalam perangkat anda, sil
    composer update
    ```
 4. konfigurasi file `.env`
-   - karna saya menggunakan [mailtrap](mailtrap.io) maka langkah pertama sebelum anda lanjut ke langkah berikut nya adalah anda harus mendaftarkan diri anda dulu ke web mailtrap sehingga anda bisa mempunyai `mail username` dan `mail password` sehingga anda bisa lanjut ke langkah berikutnya. atau anda bisa konfigurasi email ini dengan smtp Gmail anda. untuk cara lengkap nya anda bisa lihat [tutorial nya disini](https://www.niagahoster.co.id/blog/cara-kirim-email-laravel/#1_1_Konfigurasi_Kirim_Email_Laravel_via_Gmail)
+   - karna saya menggunakan [mailtrap](mailtrap.io) maka langkah pertama sebelum anda lanjut ke langkah berikut nya adalah anda harus mendaftarkan diri anda dulu ke web mailtrap sehingga anda bisa mempunyai `mail username` dan `mail password` yang mana itu perlu ada agar bisa lanjut ke langkah selanjutnya. atau anda bisa konfigurasi email ini dengan smtp Gmail anda. untuk cara lengkap nya anda bisa lihat [tutorial nya disini](https://www.niagahoster.co.id/blog/cara-kirim-email-laravel/#1_1_Konfigurasi_Kirim_Email_Laravel_via_Gmail)
        ```sh
         MAIL_MAILER=smtp
         MAIL_HOST=smtp.mailtrap.io
@@ -84,11 +84,11 @@ _dibawah ini merupakan cara pemasangan aplikasi ini ke dalam perangkat anda, sil
         MAIL_FROM_ADDRESS="ketaksaanhotelujikom@gmail.com"
         MAIL_FROM_NAME="${APP_NAME}"
        ```
-5. konfigurasi database silahkan anda buka DBMS anda dan buat database `data_hotel`
-6. aktifkan database lokal anda, silahkan buka XAMPP atau DBMS kesayangan anda lalu start MySQL
+5. aktifkan database lokal anda, silahkan buka XAMPP atau DBMS kesayangan anda lalu start MySQL dan Apache nya
+6. konfigurasi database. silahkan anda buka localhost/phpmyadmin atau kalau anda menggunakan XAMPP anda bisa klik `admin` di bagian `module MySQL` pada aplikasi nya. lalu buatlah database bernama `data_hotel`
 7. Migrate dan seeding
      ```sh
-     php artisan migrate:seed
+     php artisan migrate:fresh --seed
    ```
 7. geneate key
      ```sh
@@ -102,6 +102,11 @@ _dibawah ini merupakan cara pemasangan aplikasi ini ke dalam perangkat anda, sil
     ```sh
     username : admin
     password : 123123
+   ```
+   - demo guest
+    ```sh
+    email : test.guest@gmail.com
+    password : password
    ```
 
 <!-- Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions). -->
