@@ -47,7 +47,7 @@
                                     <td>{{ $loop->index += 1 }}</td>
                                     <td>{{ $data->email }}</td>
                                     <td class="text-center">
-                                        <a href="#" class="btn btn-sm btn-primary btn-detail" data-id="{{ $data->id }}" id="modalCenter" title="Detail">
+                                        <a href="#" class="btn btn-sm btn-primary btn-detail" data-id="{{ $data->id }}" title="Detail">
                                             <i class="fas fa-eye"></i>
                                         </a>
 
@@ -119,6 +119,29 @@
 @push('page-script')
     <script>
         $(document).ready(function() {
+
+
+        // No hp
+        function setInputFilter(textbox, inputFilter) {
+            ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(
+                function(event) {
+                    textbox.addEventListener(event, function() {
+                        if (inputFilter(this.value)) {
+                            this.oldValue = this.value;
+                            this.oldSelectionStart = this.selectionStart;
+                            this.oldSelectionEnd = this.selectionEnd;
+                        } else if (this.hasOwnProperty("oldValue")) {
+                            this.value = this.oldValue;
+                            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                        } else {
+                            this.value = "";
+                        }
+                    });
+                });
+        }
+        setInputFilter(document.getElementById("no_hp"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+        });
 
             // error create modal
             @if ($errors->any())

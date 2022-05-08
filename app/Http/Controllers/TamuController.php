@@ -21,7 +21,7 @@ class TamuController extends Controller
 
     public function search(Request $request) {
         $keyword = $request->search;
-        $tamu = tamu::where('nama', 'like', "%" . $keyword . "%")->paginate(5);
+        $tamu = tamu::where('nama_pemesan', 'like', "%" . $keyword . "%")->paginate(5);
         return view('admin.manage-tamu', compact('tamu'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -44,19 +44,15 @@ class TamuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama'=>'nullable|min:3|not_regex:/[0-9!@#$%^&*]/',
-            'username'=>'nullable|min:3|not_regex:/[!@#$%^&* ]/|unique:tamu,username',
+            'nama_pemesan'=>'nullable|min:3|not_regex:/[0-9!@#$%^&*]/',
             'email'=>'required|email|min:3|unique:tamu,email',
             'no_hp'=>'required|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
             'password'=>'required|min:6|max:1024|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
         ],
         [
-            'nama.required'=>'Nama tamu perlu diisi',
-            'nama.min'=>'Nama tamu minimal 3 karakter',
-            'nama.not_regex'=>'Nama tamu tidak boleh mengandung angka ataupun karakter spesial(!@#$%^&*)',
-            'username.required'=>'Username perlu diisi',
-            'username.min'=>'Username minimal 3 karakter',
-            'username.not_regex'=>'Nama tamu tidak boleh mengandung spasi ataupun karakter spesial(!@#$%^&*)',
+            'nama_pemesan.required'=>'Nama tamu perlu diisi',
+            'nama_pemesan.min'=>'Nama tamu minimal 3 karakter',
+            'nama_pemesan.not_regex'=>'Nama tamu tidak boleh mengandung angka ataupun karakter spesial(!@#$%^&*)',
             'email.required'=>'Email perlu diisi',
             'email.email'=>'Format harus berupa email',
             'email.min'=>'Email minimal 3 karakter',
@@ -111,22 +107,16 @@ class TamuController extends Controller
     {
         $data = tamu::findorfail($id);
         $request->validate([
-            'nama'=>'nullable|min:3|not_regex:/[0-9!@#$%^&*]/',
-            'username'=>"nullable|min:3|not_regex:/[!@#$%^&* ]/|unique:tamu,username,{$data->id}",
+            'nama_pemesan'=>'nullable|min:3|not_regex:/[0-9!@#$%^&*]/',
             'email'=>"required|email|min:3|unique:tamu,email,{$data->id}",
             'no_hp'=>'required|max:15|min:10|not_regex:/[a-zA-Z!@#$%^&*]/',
             'password'=>'nullable|min:6|max:1024|confirmed|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$/',
         ],
         [
-            'nama.required'=>'Nama Harus diisi',
-            'nama.min'=>'Nama Minimal 4 karakter',
-            'nama.max'=>'Nama Maksimal 50 karakter',
-            'nama.not_regex'=>"Nama tidak boleh mengandung angka atau pun karakter spesial(#?!@$%^&*)",
-            'username.required'=>'username Harus diisi',
-            'username.min'=>'username Minimal 6 karakter',
-            'username.max'=>'username Maksimal 50 karakter',
-            'username.unique'=>'username sudah di daftarkan',
-            'username.not_regex'=>"username tidak boleh mengandung spasi atau pun karakter spesial(#?!@$%^&*)",
+            'nama_pemesan.required'=>'Nama Harus diisi',
+            'nama_pemesan.min'=>'Nama Minimal 4 karakter',
+            'nama_pemesan.max'=>'Nama Maksimal 50 karakter',
+            'nama_pemesan.not_regex'=>"Nama tidak boleh mengandung angka atau pun karakter spesial(#?!@$%^&*)",
             'password.min'=>'password Minimal 6 karakter',
             'password.max'=>'password Maksimal 20 karakter',
             'password.confirmed'=>'password tidak sama dengan field konfirmasi password',
@@ -138,17 +128,15 @@ class TamuController extends Controller
         ]);
         if($request->password) {
             $data = [
-                'username' => $request->username,
                 'password' => bcrypt($request->password),
-                'nama' => $request->nama,
+                'nama_pemesan' => $request->nama,
                 'email'=>$request->email,
                 'no_hp'=>$request->no_hp,
                 'remember_token'=>Str::random(40)
             ];
         } else {
             $data = [
-                'username' => $request->username,
-                'nama' => $request->nama,
+                'nama_pemesan' => $request->nama,
                 'email'=>$request->email,
                 'no_hp'=>$request->no_hp,
             ];

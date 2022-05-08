@@ -22,8 +22,7 @@
                 <x-card-body>
                     <x-form action="{{ route('manage-tamu.update', $data->id) }}" id="update-tamu" method="POST" bajak="put">
                         <div class="row">
-                            <x-modal-input class="col-6" value="{{ old('nama', $data->nama) }}" name='nama' label="nama" type="text" />
-                            <x-modal-input class="col-6" value="{{ old('username', $data->username) }}" name='username' label="Username" type="text" />
+                            <x-modal-input class="col-6" value="{{ old('nama_pemesan', $data->nama_pemesan) }}" name='nama' label="nama" type="text" />
                             <x-modal-input class="col-6" value="{{ old('email', $data->email) }}" name='email' label="Email" type="email" />
                             <x-modal-input class="col-6" value="{{ old('no_hp', $data->no_hp) }}" name='no_hp' label="Nomor Hp" type="text" />
                             <x-password-input class="col-6" />
